@@ -11,7 +11,12 @@ import SwiftUI
 struct BeerHopperApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardTabView()
+                .environment(\.theme, Theme())
         }
     }
+}
+
+#Preview {
+    DashboardTabView()
 }
