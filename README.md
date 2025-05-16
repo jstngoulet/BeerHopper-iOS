@@ -42,13 +42,15 @@ This app brings the full BeerHopper experience to iPhone:
    ```bash
    git clone https://github.com/[your-username]/beerhopper-ios.git
    cd beerhopper-ios
+   ```
 
-	2.	Open in Xcode:
+2.	Open in Xcode:
+ 
+   ```bash
+	open BeerHopper.xcodeproj
+	```
 
-open BeerHopper.xcodeproj
-
-
-	3.	Run on simulator or your iOS device.
+3.	Run on simulator or your iOS device.
 
 ⸻
 
