@@ -6,9 +6,9 @@
 //
 
 
-struct PaginatedPostResponse: Decodable {
+struct PaginatedPostResponse: Codable {
     let total: Int
     let page: Int
     let limit: Int
-    let data: [Post]
+    let data: [ForumPost]
 }

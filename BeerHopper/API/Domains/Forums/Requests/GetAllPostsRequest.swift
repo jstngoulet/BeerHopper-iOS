@@ -1,20 +1,26 @@
 //
-//  SearchRequest.swift
+//  GetAllPostsRequest.swift
 //  BeerHopper
 //
-//  Created by Justin Goulet on 5/14/25.
+//  Created by Justin Goulet on 5/15/25.
 //
+
 import Foundation
 
-class SearchRequest: GETRequest {
+final class GetAllPostsRequest: GETRequest {
     
-    init(query: String?) {
+    init(
+        page: Int?,
+        limit: Int?
+    ) {
+        
         let params: [String: Any?] = [
-            "query": query
+            "page": page,
+            "limit": limit
         ]
         
         let queryString = params.toQueryString()
-        let basePath = "/api/search"
+        let basePath = "/api/posts"
         
         let fullPath = queryString.isEmpty
             ? basePath
@@ -26,4 +32,5 @@ class SearchRequest: GETRequest {
             contentType: .json
         )
     }
+    
 }

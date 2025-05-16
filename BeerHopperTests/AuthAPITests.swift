@@ -9,8 +9,8 @@ import XCTest
 
 final class AuthAPITests: BeerHopperTests {
     
-    private lazy var email: String = "TEST-35DCC913-1EF1-46EF-8FF5-C8C160479A3C-TEST@beerhopper.me"
-    let password: String = "BeerHopper123!"
+    private let email: String = "TEST-35DCC913-1EF1-46EF-8FF5-C8C160479A3C-TEST@beerhopper.me"
+    private let password: String = "BeerHopper123!"
     
     /// Tests successful user registration with a valid email and password.
     func test_generalRegistration_success() async throws {
@@ -132,7 +132,7 @@ final class AuthAPITests: BeerHopperTests {
                     password: password,
                     env: .development
                 )
-                XCTAssertNotNil(authResult)
+                XCTAssert(authResult.success)
                 expectaction.fulfill()
             }
             
@@ -160,7 +160,7 @@ final class AuthAPITests: BeerHopperTests {
                     env: .development
                 )
                 
-                XCTAssertNotNil(registrationResult)
+                XCTAssert(registrationResult.success)
                 expectaction.fulfill()
             }
             

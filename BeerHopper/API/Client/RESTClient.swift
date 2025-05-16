@@ -65,6 +65,7 @@ class RESTClient: NSObject {
         RESTClient.token = token
     }
     
+    @discardableResult
     class func perform(
         _ request: Request,
         env: Host = currentENV
