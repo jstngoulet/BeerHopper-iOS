@@ -40,7 +40,7 @@ This app brings the full BeerHopper experience to iPhone:
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/[your-username]/beerhopper-ios.git
+   git clone https://github.com/jstngoulet/beerhopper-ios.git
    cd beerhopper-ios
    ```
 
@@ -52,7 +52,8 @@ This app brings the full BeerHopper experience to iPhone:
 
 3.	Run on simulator or your iOS device.
 
-⸻
+
+---
 
 📦 Features in Progress
 
@@ -61,7 +62,8 @@ This app brings the full BeerHopper experience to iPhone:
 	•	Push notifications
 	•	Profile editing and social linking
 
-⸻
+
+---
 
 🧪 Testing
 
@@ -76,19 +78,23 @@ Run all tests via:
 Cmd + U
 
 
-⸻
+---
+
 
 📄 License
 
 Will be a private repo shortly
 
-⸻
+
+---
+
 
 🔗 Related Projects
 	•	🌐 BeerHopper Web (staging)
 	•	📦 BeerHopper API
 
-⸻
+
+---
 
 Cheers to good code and great brews 🍻
 
