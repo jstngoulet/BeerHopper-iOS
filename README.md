@@ -55,6 +55,7 @@ This app brings the full BeerHopper experience to iPhone:
 ⸻
 
 📦 Features in Progress
+
 	•	User-generated ingredient creation
 	•	Recipe building and tracking
 	•	Push notifications
@@ -63,6 +64,7 @@ This app brings the full BeerHopper experience to iPhone:
 ⸻
 
 🧪 Testing
+
 	•	Unit and integration tests using XCTest
 	•	Dedicated suites for:
 	•	Authentication (AuthAPITests)
