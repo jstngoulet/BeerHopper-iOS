@@ -46,9 +46,9 @@ This app brings the full BeerHopper experience to iPhone:
 
 2.	Open in Xcode:
  
-   ```bash
-	open BeerHopper.xcodeproj
-	```
+  ```bash
+  open BeerHopper.xcodeproj
+  ```
 
 3.	Run on simulator or your iOS device.
 
