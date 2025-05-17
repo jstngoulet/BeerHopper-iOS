@@ -9,7 +9,10 @@
 /**
  Decodable as we are just getting it from the server
  */
-class SearchResult: Decodable {
+class SearchResult: Codable {
+    let success: Bool
+    let message: String?
+    
     let hops: PaginatedHopResponse?
     let grains: PaginatedGrainResponse?
     let yeasts: PaginatedYeastResponse?

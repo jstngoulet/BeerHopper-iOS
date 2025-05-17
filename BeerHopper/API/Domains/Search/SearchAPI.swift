@@ -18,10 +18,19 @@ final class SearchAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            let results = try JSONDecoder().decode(
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601WithFractionalAndFallback
+            
+            let results = try decoder.decode(
                 SearchResult.self,
                 from: responseData
             )
+            
+            //  Return error
+            if results.success == false
+                , let message = results.message {
+                throw RESTClient.RESTError.other(message)
+            }
             
             return results
         } catch {

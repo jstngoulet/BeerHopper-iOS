@@ -65,9 +65,16 @@ class SearchViewModel: ObservableObject {
 }
 
 extension SearchResult {
-    typealias SearchListItem = (url: String, title: String, description: String, id: String, type: CellType)
+    typealias SearchListItem = (
+        url: String,
+        title: String,
+        description: String,
+        id: String,
+        type: CellType,
+        placeholder: Image
+    )
     
-    enum CellType {
+    enum CellType: String, CaseIterable {
         case hop, grain, yeast, post
     }
     
@@ -81,7 +88,8 @@ extension SearchResult {
                 title: hop.name,
                 description: hop.notes,
                 id: hop.id,
-                type: .hop
+                type: .hop,
+                placeholder: Image("DefaultHopIcon")
             )
         }) ?? []
         
@@ -92,18 +100,20 @@ extension SearchResult {
                 title: grain.name,
                 description: grain.notes,
                 id: grain.id,
-                type: .grain
+                type: .grain,
+                placeholder: Image("DefaultGrainIcon")
             )
         }) ?? []
         
         //  Yeasts
         items += yeasts?.data.compactMap({ yeast in
-            (
+           (
                 url: yeast.imageUrl?.appending("?item=\(yeast.id)") ?? "",
                 title: yeast.name,
-                description: yeast.name,
+                description: yeast.notes,
                 id: yeast.id,
-                type: .yeast
+                type: .yeast,
+                placeholder: Image("DefaultYeastIcon")
             )
         }) ?? []
         
@@ -137,7 +147,8 @@ struct SearchView: View {
                             viewModel: SearchCardViewModel(
                                 iconURL: item.url,
                                 titleText: item.title,
-                                descriptionText: item.description
+                                descriptionText: item.description,
+                                placeholderImage: item.placeholder
                             )
                         )
                     }

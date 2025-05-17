@@ -8,10 +8,24 @@ import Foundation
 
 class RESTClient: NSObject {
     
-    enum Host: String {
-        case development    = "http://localhost:3030"
-        case staging        = "https://beerhopper-api.onrender.com"
-        case production     = "https://beerhopper-api.prod.onrender.com"
+    enum Host {
+        case development
+        case staging
+        case production
+        case custom(String)
+        
+        var baseURL: String {
+            switch self {
+            case .development:
+                return "http://localhost:3030"
+            case .staging:
+                return "https://beerhopper-api.onrender.com"
+            case .production:
+                return "https://beerhopper-api.prod.onrender.com"
+            case .custom(let url):
+                return url
+            }
+        }
     }
     
     enum APIVersion: String {
@@ -74,7 +88,7 @@ class RESTClient: NSObject {
         //  Create the URL Request
         guard let url = URL(
             string: [
-                env.rawValue,
+                env.baseURL,
                 request.path
             ].joined()
         ) else { throw RESTError.invalidURL(request.classForCoder.description()) }

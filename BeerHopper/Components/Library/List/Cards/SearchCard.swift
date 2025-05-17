@@ -11,11 +11,18 @@ class SearchCardViewModel: ObservableObject {
     @Published var iconURL: String?
     @Published var titleText: String?
     @Published var descriptionText: String?
+    @Published var placeholder: Image?
     
-    init(iconURL: String? = nil, titleText: String? = nil, descriptionText: String? = nil) {
+    init(
+        iconURL: String? = nil,
+        titleText: String? = nil,
+        descriptionText: String? = nil,
+        placeholderImage: Image? = nil
+    ) {
         self.iconURL = iconURL
         self.titleText = titleText
         self.descriptionText = descriptionText
+        self.placeholder = placeholderImage
     }
 }
 
@@ -27,7 +34,8 @@ struct SearchCard: View {
         HStack(alignment: .center, spacing: 12) {
             AsyncImageView(
                 url: viewModel.iconURL ?? "",
-                placeholder: Image(systemName: "photo")
+                placeholder: viewModel.placeholder
+                    ?? Image(systemName: "photo")
             )
             .frame(width: 48, height: 48)
             .cornerRadius(8)

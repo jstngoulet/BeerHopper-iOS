@@ -4,18 +4,18 @@
 //
 //  Created by Justin Goulet on 5/14/25.
 //
-
+import Foundation
 
 struct Yeast: Codable {
     let id: String
-    let dateUpdated: String
-    let dateAdded: String
-    let lastUpdated: String
+    let dateUpdated: Date
+    let dateAdded: Date
+    let lastUpdated: Date
     let name: String
     let type: String
     let form: String
     let attenuation: Double
-    let flocculation: Double
+    let flocculation: Int
     let origin: String
     let alcoholTolerance: String
     let temperatureRange: String

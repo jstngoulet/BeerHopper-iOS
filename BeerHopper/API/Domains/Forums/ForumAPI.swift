@@ -33,7 +33,7 @@ final class ForumAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            print(String(bytes: responseData, encoding: .utf8))
+//            print(String(bytes: responseData, encoding: .utf8))
             
             let result = try JSONDecoder().decode(
                 ForumPostResponse.self,

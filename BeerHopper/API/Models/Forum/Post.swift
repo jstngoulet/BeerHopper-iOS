@@ -11,7 +11,7 @@ struct ForumPost: Codable, Identifiable {
     let id: String
     let title: String
     let content: String
-    let createdBy: ForumUser
+    let createdBy: ForumUser?
     let likes: Int
     let dislikes: Int
     let userReaction: UserPostReaction?
