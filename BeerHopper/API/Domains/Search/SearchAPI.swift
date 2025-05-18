@@ -7,14 +7,18 @@
 import Foundation
 
 final class SearchAPI: NSObject {
-
+    
     class func performGeneralSearch(
         with query: String?,
+        types: [SearchRequest.SearchObjectType]? = nil,
         env: RESTClient.Host = RESTClient.currentENV
     ) async throws -> SearchResult {
         do {
             guard let responseData = try await RESTClient.perform(
-                SearchRequest(query: query),
+                SearchRequest(
+                    query: query,
+                    types: types
+                ),
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             

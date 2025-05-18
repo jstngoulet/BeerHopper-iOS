@@ -19,17 +19,40 @@ final class SearchAPITests: BeerHopperTests {
     
     // MARK: - Valid Search Should Return Structured Data
     func test_performGeneralSearch_validQuery_returnsResults() async throws {
-        let result = try await SearchAPI.performGeneralSearch(with: validQuery, env: env)
+        let result = try await SearchAPI.performGeneralSearch(
+            with: validQuery,
+            types: [.hops, .grains, .yeasts],
+            env: env
+        )
         
         XCTAssertNotNil(result.hops)
         XCTAssertNotNil(result.grains)
         XCTAssertNotNil(result.yeasts)
-//        XCTAssertNotNil(result.posts)
+        XCTAssertNil(result.posts)
         
         XCTAssertGreaterThanOrEqual(result.hops?.data.count ?? -1, 0)
         XCTAssertGreaterThanOrEqual(result.grains?.data.count ?? -1, 0)
         XCTAssertGreaterThanOrEqual(result.yeasts?.data.count ?? -1, 0)
-//        XCTAssertGreaterThanOrEqual(result.posts?.data.count ?? -1, 0)
+        XCTAssertTrue(result.posts?.data == nil)
+    }
+    
+    
+    func test_performGeneralSearch_yeastsOnly_returnsResults() async throws {
+        let result = try await SearchAPI.performGeneralSearch(
+            with: validQuery,
+            types: [.yeasts],
+            env: env
+        )
+        
+        XCTAssertNil(result.hops)
+        XCTAssertNil(result.grains)
+        XCTAssertNotNil(result.yeasts)
+        XCTAssertNil(result.posts)
+        
+        XCTAssertGreaterThanOrEqual(result.yeasts?.data.count ?? -1, 0)
+        XCTAssertTrue(result.hops?.data == nil)
+        XCTAssertTrue(result.grains?.data == nil)
+        XCTAssertTrue(result.posts?.data == nil)
     }
     
     // MARK: - Empty Query Should Fail

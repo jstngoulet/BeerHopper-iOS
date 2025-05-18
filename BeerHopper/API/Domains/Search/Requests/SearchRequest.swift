@@ -8,9 +8,17 @@ import Foundation
 
 class SearchRequest: GETRequest {
     
-    init(query: String?) {
+    enum SearchObjectType: String, CaseIterable {
+        case yeasts, grains, posts, hops
+    }
+    
+    init(
+        query: String?,
+        types: [SearchObjectType]? = nil
+    ) {
         let params: [String: Any?] = [
-            "query": query
+            "query": query,
+            "types": types?.map({ $0.rawValue }).joined(separator: ",")
         ]
         
         let queryString = params.toQueryString()
