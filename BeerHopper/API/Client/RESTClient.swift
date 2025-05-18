@@ -42,6 +42,12 @@ class RESTClient: NSObject {
     
     private(set) static var currentENV: Host = .development
     
+    static var sharedDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601WithFractionalAndFallback
+        return decoder
+    }()
+    
     private static var headers: [String: String] = [
         "API-Token": "b79cb3ba-745e-5d9a-8903-4a02327a7e09"   //  Token only valid locally
     ]

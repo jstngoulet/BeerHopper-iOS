@@ -12,7 +12,6 @@ struct BeerHopperApp: App {
     var body: some Scene {
         WindowGroup {
             DashboardTabView()
-                .environment(\.theme, Theme())
         }
     }
 }

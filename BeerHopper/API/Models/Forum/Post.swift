@@ -11,14 +11,15 @@ struct ForumPost: Codable, Identifiable {
     let id: String
     let title: String
     let content: String
+    let dateCreated: Date
     let createdBy: ForumUser?
     let likes: Int
     let dislikes: Int
     let userReaction: UserPostReaction?
-    let commentsCount: Int
     let comments: [ForumComment]?
     
     var netLikes: Int { likes - dislikes }
+    var commentsCount: Int { comments?.count ?? 0 }
 }
 
 enum UserPostReaction: String, Codable {

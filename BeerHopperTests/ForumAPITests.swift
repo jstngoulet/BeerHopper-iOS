@@ -72,8 +72,13 @@ final class ForumAPITests: BeerHopperTests {
     
     /// Tests that a comment can be successfully added to a forum post.
     func test_commentOnPost_success() async throws {
+        let newTitle = [
+            testPostTitle
+            , "with comment"
+        ].joined(separator: "-")
+        
         let post = try await ForumAPI.createPost(
-            withTitle: testPostTitle,
+            withTitle: newTitle,
             content: testPostContent,
             env: environment
         )
@@ -97,7 +102,7 @@ final class ForumAPITests: BeerHopperTests {
             reaction: .like,
             env: environment
         )
-        XCTAssertEqual(updated?.id, post.id)
+        XCTAssertEqual(updated.id, post.id)
     }
     
 }

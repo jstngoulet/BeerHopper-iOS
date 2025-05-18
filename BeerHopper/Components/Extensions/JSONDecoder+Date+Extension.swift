@@ -7,6 +7,7 @@
 import Foundation
 
 extension JSONDecoder.DateDecodingStrategy {
+    
     static let iso8601WithFractionalAndFallback: JSONDecoder.DateDecodingStrategy = .custom { decoder -> Date in
         let container = try decoder.singleValueContainer()
         let dateString = try container.decode(String.self)
@@ -18,12 +19,12 @@ extension JSONDecoder.DateDecodingStrategy {
         
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)  // Expecting UTC input
         
         for format in formats {
             formatter.dateFormat = format
-            if let date = formatter.date(from: dateString) {
-                return date
+            if let utcDate = formatter.date(from: dateString) {
+                return utcDate.convertToLocalTime()
             }
         }
         
@@ -33,3 +34,5 @@ extension JSONDecoder.DateDecodingStrategy {
         )
     }
 }
+
+

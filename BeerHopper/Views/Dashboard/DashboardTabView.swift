@@ -14,10 +14,26 @@ struct DashboardTabView: View {
     
     init(tabNumber: Int) {
         self._selectedTab = State(initialValue: tabNumber)
+        
+        //  Login here for now
+        Task {
+            _ = try? await AuthAPI.login(
+                email: "test@test.com",
+                password: "password"
+            )
+        }
     }
     
     init() {
         self._selectedTab = State(initialValue: 0)
+        
+        //  Login here for now
+        Task {
+            _ = try? await AuthAPI.login(
+                email: "brewer.bob@brewmail.com",
+                password: "BrewerBob22"
+            )
+        }
     }
     
     var body: some View {

@@ -35,7 +35,7 @@ final class AuthAPI: NSObject {
             ) else { throw RESTClient.RESTError.noDataReturned }
             
             //  Parse the result
-            let result = try JSONDecoder().decode(
+            let result = try RESTClient.sharedDecoder.decode(
                 LoginResult.self,
                 from: responseData
             )
@@ -76,7 +76,7 @@ final class AuthAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            let result = try JSONDecoder().decode(
+            let result = try RESTClient.sharedDecoder.decode(
                 RegistrationResult.self,
                 from: responseData
             )

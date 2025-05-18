@@ -22,10 +22,7 @@ final class SearchAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601WithFractionalAndFallback
-            
-            let results = try decoder.decode(
+            let results = try RESTClient.sharedDecoder.decode(
                 SearchResult.self,
                 from: responseData
             )

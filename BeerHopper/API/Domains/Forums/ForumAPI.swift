@@ -32,10 +32,8 @@ final class ForumAPI: NSObject {
                 ),
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
-            
-//            print(String(bytes: responseData, encoding: .utf8))
-            
-            let result = try JSONDecoder().decode(
+                        
+            let result = try RESTClient.sharedDecoder.decode(
                 ForumPostResponse.self,
                 from: responseData
             )
@@ -69,7 +67,7 @@ final class ForumAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            let result = try JSONDecoder().decode(
+            let result = try RESTClient.sharedDecoder.decode(
                 ForumPostResponse.self,
                 from: responseData
             )
@@ -100,7 +98,7 @@ final class ForumAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            let result = try JSONDecoder().decode(
+            let result = try RESTClient.sharedDecoder.decode(
                 ForumPost.self,
                 from: dataResponse
             )
@@ -133,7 +131,7 @@ final class ForumAPI: NSObject {
                 env: env
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            let result = try JSONDecoder().decode(
+            let result = try RESTClient.sharedDecoder.decode(
                 ForumPost.self,
                 from: responseData
             )
@@ -157,22 +155,25 @@ final class ForumAPI: NSObject {
         withId postId: String,
         reaction: UserPostReaction? = nil,
         env: RESTClient.Host = RESTClient.currentENV
-    ) async throws -> ForumPost? {
+    ) async throws -> ForumPost {
         
         do {
             //  Do nothing with the response as it is not used
-            try await RESTClient.perform(
+            guard let responseData = try await RESTClient.perform(
                 ReactToPostRequest(
                     postId: postId,
                     reaction: reaction
                 ),
                 env: env
-            )
+            ) else { throw RESTClient.RESTError.noDataReturned }
             
             //  If successful, fetch the post
-            //  This can be removed after the API is updated.
-            //  The API should reutrn the full post already
-            return try await getPost(byId: postId)
+            let result = try RESTClient.sharedDecoder.decode(
+                ForumPost.self,
+                from: responseData
+            )
+            
+            return result
         } catch {
             throw error
         }
@@ -199,14 +200,12 @@ final class ForumAPI: NSObject {
                 )
             ) else { throw RESTClient.RESTError.noDataReturned }
             
-            //  Return comment now, but this will be a different object later
-            return ForumComment(
-                id: UUID().uuidString,
-                content: comment,
-                dateCreated: Date().description,
-                dateUpdated: Date().description,
-                createdBy: ForumUser(id: UUID().uuidString, username: "You")
+            let result = try RESTClient.sharedDecoder.decode(
+                ForumComment.self,
+                from: dataResponse
             )
+            
+            return result
         } catch {
             throw error
         }
