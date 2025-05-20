@@ -5,6 +5,9 @@
 //  Created by Justin Goulet on 5/18/25.
 //
 import SwiftUI
+import DesignSystem
+import Models
+import NetworkingAPI
 
 /// View model responsible for managing the state and user interactions
 /// for a single forum post, including reactions and comments.

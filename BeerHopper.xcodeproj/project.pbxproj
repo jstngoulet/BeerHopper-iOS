@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4253365D2DDCF0740051563E /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 4253365C2DDCF0740051563E /* DesignSystem */; };
+		425336652DDCF5CF0051563E /* NetworkingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 425336642DDCF5CF0051563E /* NetworkingAPI */; };
+		425336672DDD004F0051563E /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 425336662DDD004F0051563E /* Models */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		427ECBD62DD522600053101A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -195,6 +201,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				425336672DDD004F0051563E /* Models in Frameworks */,
+				4253365D2DDCF0740051563E /* DesignSystem in Frameworks */,
+				425336652DDCF5CF0051563E /* NetworkingAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,12 +224,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4253365B2DDCF0740051563E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		427ECBBF2DD5225E0053101A = {
 			isa = PBXGroup;
 			children = (
 				427ECBCA2DD5225E0053101A /* BeerHopper */,
 				427ECBD82DD522600053101A /* BeerHopperTests */,
 				427ECBE22DD522600053101A /* BeerHopperUITests */,
+				4253365B2DDCF0740051563E /* Frameworks */,
 				427ECBC92DD5225E0053101A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -255,6 +272,9 @@
 			);
 			name = BeerHopper;
 			packageProductDependencies = (
+				4253365C2DDCF0740051563E /* DesignSystem */,
+				425336642DDCF5CF0051563E /* NetworkingAPI */,
+				425336662DDD004F0051563E /* Models */,
 			);
 			productName = BeerHopper;
 			productReference = 427ECBC82DD5225E0053101A /* BeerHopper.app */;
@@ -338,6 +358,8 @@
 			);
 			mainGroup = 427ECBBF2DD5225E0053101A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 427ECBC92DD5225E0053101A /* Products */;
 			projectDirPath = "";
@@ -713,6 +735,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4253365C2DDCF0740051563E /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+		425336642DDCF5CF0051563E /* NetworkingAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkingAPI;
+		};
+		425336662DDD004F0051563E /* Models */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Models;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 427ECBC02DD5225E0053101A /* Project object */;
 }

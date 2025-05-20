@@ -5,6 +5,7 @@
 //  Created by Justin Goulet on 5/17/25.
 //
 import SwiftUI
+import DesignSystem
 
 final class ZeroStateViewModel: ObservableObject {
     

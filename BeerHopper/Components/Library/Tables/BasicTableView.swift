@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 final class BasicTableViewViewModel: ObservableObject {
     

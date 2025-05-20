@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import DesignSystem
+import Models
 
 /// A detailed view for displaying a single forum post along with its comments and an input field to add new comments.
 struct ForumCardDetail: View {

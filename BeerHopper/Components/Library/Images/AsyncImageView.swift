@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import NetworkingAPI
 
 /**
  Custom Async Image view to show use of custom caching, instead of AsyncImage.
@@ -42,9 +43,8 @@ struct AsyncImageView: View {
         self.url = url
         self.placeholder = placeholder
         self.imageLoader = ImageLoader(
-            source: ImageSource.unfetched(
-                url: URL(string: url)
-            ), placeholder: placeholder
+            imageSource: .unfetched(url: URL(string: url)),
+            placeholder: placeholder
         )
     }
     

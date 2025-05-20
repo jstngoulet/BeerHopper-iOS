@@ -5,6 +5,7 @@
 //  Created by Justin Goulet on 5/19/25.
 //
 import SwiftUI
+import DesignSystem
 
 struct TextChip: View {
     let buttonConfig: ButtonConfig

@@ -5,6 +5,7 @@
 //  Created by Justin Goulet on 5/15/25.
 //
 import SwiftUI
+import DesignSystem
 
 struct PrimaryButtonStyle: ButtonStyle {
     

@@ -5,6 +5,8 @@
 //  Created by Justin Goulet on 5/14/25.
 //
 import SwiftUI
+import Models
+import NetworkingAPI
 
 @MainActor
 class SearchViewModel: ObservableObject {
@@ -65,7 +67,7 @@ class SearchViewModel: ObservableObject {
     }
 }
 
-extension SearchResult {
+public extension SearchResult {
     typealias SearchListItem = (
         url: String,
         title: String,

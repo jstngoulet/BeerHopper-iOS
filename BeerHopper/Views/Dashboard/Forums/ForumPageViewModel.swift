@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Models
+import NetworkingAPI
 
 /// View model that manages the state and logic for displaying and searching forum posts.
 /// Handles debounced search input and pagination control.

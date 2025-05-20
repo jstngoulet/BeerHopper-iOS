@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import NetworkingAPI
 
 final class RecipesPageViewModel: ObservableObject {
     
     //  Accessor to the RESTClient model
+    @MainActor
     var isLoggedIn: Bool
     { RESTClient.isLoggedIn == false }
     

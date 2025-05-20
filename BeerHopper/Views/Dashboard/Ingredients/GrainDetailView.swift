@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import DesignSystem
+import Models
+import NetworkingAPI
 
 /// ViewModel responsible for fetching and managing the state of a specific grain's data.
 final class GrainDetailViewModel: ObservableObject {

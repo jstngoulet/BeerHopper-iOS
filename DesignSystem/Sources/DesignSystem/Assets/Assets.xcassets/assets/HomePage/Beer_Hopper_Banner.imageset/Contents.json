@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Beer_Hopper_Banner.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
