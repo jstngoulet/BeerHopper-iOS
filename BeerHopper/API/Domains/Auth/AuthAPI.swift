@@ -40,6 +40,12 @@ final class AuthAPI: NSObject {
                 from: responseData
             )
             
+            guard result.success else {
+                throw RESTClient.RESTError.other(
+                    result.message ?? "Could not log in"
+                )
+            }
+            
             //  Update the rest client with the token
             //  - Note: Removes if login failed
             RESTClient.set(

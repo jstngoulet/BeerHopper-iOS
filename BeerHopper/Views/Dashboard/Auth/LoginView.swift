@@ -21,7 +21,7 @@ class LoginViewModel: ObservableObject {
     }
     
     @Published
-    var path: NavigationPath = NavigationPath()
+    var isLoggedIn: Bool = false
     
     @Published
     var email: String = "" {
@@ -41,12 +41,23 @@ class LoginViewModel: ObservableObject {
     var isValidated: Bool = false
     
     func login() async {
-        print("Login with \(email), password: \(password)")
-        path.append(LoginRoute.home)
+        do {
+            let loginResult = try await AuthAPI.login(
+                email: email,
+                password: password
+            )
+            
+            await MainActor.run {
+                isLoggedIn = loginResult.success
+            }
+            
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
     }
     
     func forgotPassword() {
-        path.append(LoginRoute.forgotPassword)
+        
     }
     
     private func validateFields() {
@@ -70,8 +81,15 @@ struct LoginView: View {
     @State
     private var isSecureTextVisible: Bool = false
     
+    @Binding
+    private var isLoggedIn: Bool
+    
+    init(isLoggedIn: Binding<Bool>) {
+        self._isLoggedIn = isLoggedIn
+    }
+    
     var body: some View {
-        NavigationStack(path: $viewModel.path) {
+        NavigationStack {
             VStack {
                 Spacer()
                 
@@ -133,6 +151,8 @@ struct LoginView: View {
                     LazyView { SearchView() }
                 }
             }
+        }.onChange(of: viewModel.isLoggedIn) { oldValue, newValue in
+            self.isLoggedIn = newValue
         }
     }
     
@@ -152,5 +172,5 @@ struct BlurView: UIViewRepresentable {
 
 
 #Preview("Base Login") {
-    LoginView()
+    LoginView(isLoggedIn: .constant(false))
 }

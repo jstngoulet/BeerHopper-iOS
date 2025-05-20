@@ -16,7 +16,8 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    @Published var state: SearchState = .pending
+    @Published
+    var state: SearchState = .pending
     
     enum SearchState {
         case pending
@@ -107,7 +108,7 @@ extension SearchResult {
         
         //  Yeasts
         items += yeasts?.data.compactMap({ yeast in
-           (
+            (
                 url: yeast.imageUrl?.appending("?item=\(yeast.id)") ?? "",
                 title: yeast.name,
                 description: yeast.notes,
@@ -117,54 +118,100 @@ extension SearchResult {
             )
         }) ?? []
         
+        items += posts?.data.compactMap({ post in
+            (
+                url: "",
+                title: post.title,
+                description: post.content,
+                id: post.id,
+                type: .post,
+                placeholder: Image("DefaultForumPostIcon")
+            )
+        }) ?? []
+        
         return items
     }
 }
 
 struct SearchView: View {
     
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject
+    var viewModel = SearchViewModel()
+    
+    @State
+    private var navigationPath = NavigationPath()
+    
+    enum SearchResultRoute: Hashable {
+        case grain(id: String)
+        case hop(id: String)
+        case yeast(id: String)
+        case post(id: String)
+    }
     
     var body: some View {
-        NavigationSplitView {
-            switch viewModel.state {
-            case .pending:
-                Text("Pending Search")
-            case .loading:
-                Text("Loading")
-            case .loaded(let searchResults):
-                List(searchResults, id: \.id) { item in
-                    NavigationLink {
-                        SearchCard(
-                            viewModel: SearchCardViewModel(
-                                iconURL: item.url,
-                                titleText: item.title,
-                                descriptionText: item.description
+        NavigationStack(path: $navigationPath) {
+            Group {
+                switch viewModel.state {
+                case .pending:
+                    Text("Pending Search")
+                case .loading:
+                    ProgressView("Loading...")
+                case .loaded(let searchResults):
+                    List(searchResults, id: \.id) { item in
+                        Button(action: {
+                            switch item.type {
+                            case .grain:
+                                navigationPath.append(SearchResultRoute.grain(id: item.id))
+                            case .yeast:
+                                navigationPath.append(SearchResultRoute.yeast(id: item.id))
+                            case .hop:
+                                navigationPath.append(SearchResultRoute.hop(id: item.id))
+                            case .post:
+                                navigationPath.append(SearchResultRoute.post(id: item.id))
+                            }
+                        }) {
+                            SearchCard(
+                                viewModel: SearchCardViewModel(
+                                    iconURL: item.url,
+                                    titleText: item.title,
+                                    descriptionText: item.description,
+                                    placeholderImage: item.placeholder
+                                )
                             )
-                        )
-                    } label: {
-                        SearchCard(
-                            viewModel: SearchCardViewModel(
-                                iconURL: item.url,
-                                titleText: item.title,
-                                descriptionText: item.description,
-                                placeholderImage: item.placeholder
-                            )
-                        )
+                        }
                     }
-                }.listStyle(.plain)
-            case .error(let error):
-                Text(error)
+                    .listStyle(.plain)
+                    
+                case .error(let error):
+                    Text("Error: \(error)")
+                        .foregroundColor(.red)
+                }
             }
-        } detail: {
-            Text("Detail")
+            .navigationDestination(for: SearchResultRoute.self) { route in
+                switch route {
+                case .grain(let id):
+                    GrainDetailView(
+                        with: id
+                    ) { next in
+                            navigationPath.append(
+                                SearchResultRoute.grain(id: next.id)
+                            )
+                        }
+                case .hop(let id):
+                    EmptyView()
+                case .yeast(let yeast):
+                    EmptyView()
+                case .post(let id):
+                    ForumCardDetail(with: id)
+                }
+            }
         }
-            .searchable(text: $viewModel.searchText)
-            .navigationTitle("Search")
-            .navigationBarTitleDisplayMode(.inline)
-
+        .searchable(text: $viewModel.searchText)
+        .navigationTitle("Search")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 
 #Preview {
     SearchView()

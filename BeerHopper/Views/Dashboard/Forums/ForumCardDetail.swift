@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+/// A detailed view for displaying a single forum post along with its comments and an input field to add new comments.
 struct ForumCardDetail: View {
     
     @ObservedObject
     private var viewModel: ForumCardDetailViewModel
     
+    /// Stores the text input for a new comment.
     @State
     private var commentText: String = ""
     
+    /// Initializes the detail view using a `ForumPost` instance.
+    /// - Parameters:
+    ///   - post: The forum post to display.
+    ///   - onUpdate: Optional closure to handle updates to the post.
     init(
         post: ForumPost,
         onUpdate: ((ForumPost) -> Void)? = nil
@@ -25,6 +31,21 @@ struct ForumCardDetail: View {
         )
     }
     
+    /// Initializes the detail view using a post ID.
+    /// - Parameters:
+    ///   - postId: The ID of the forum post to fetch and display.
+    ///   - onUpdate: Optional closure to handle updates to the post.
+    init(
+        with postId: String,
+        onUpdate: ((ForumPost) -> Void)? = nil
+    ) {
+        self.viewModel = ForumCardDetailViewModel(
+            postId: postId,
+            onUpdate: onUpdate
+        )
+    }
+    
+    /// The body of the view, which includes the forum post, comments, and comment input.
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -37,7 +58,10 @@ struct ForumCardDetail: View {
                     
                     Divider()
                     
-                    if let comments = viewModel.post.comments, !comments.isEmpty {
+                    if case let .loaded(post) = viewModel.currentState,
+                       let comments = post.comments,
+                       !comments.isEmpty {
+                        
                         Text("Comments")
                             .font(.headline)
                             .padding(.horizontal)
@@ -87,65 +111,52 @@ struct ForumCardDetail: View {
     }
 }
 
-#Preview {
-    ForumCardDetail(
-        post: ForumPost(
-            id: "44c5ed2e-2c10-4b65-9ac8-93ef1cf3a846",
-            title: "Deficio civitas comburo arguo una tergeo suscipit.",
-            content: "Itaque depraedor tertius victoria quam vespillo arca usque textilis. Coma uter vilitas. Tunc strenuus atrox molestiae auxilium adopto vulgaris ultio.\nComparo debeo acervus creo decerno paens denuncio. Coniecto velociter torqueo vox. Soleo pariatur demo deprecator careo amet.",
-            dateCreated: Date(),
-            createdBy: ForumUser(
-                id: UUID().uuidString,
-                username: "Test U."
-            ),
-            likes: 9,
-            dislikes: 2,
-            userReaction: .like,
-            comments: nil
-        )
-    )
-}
-
+/// A subview for rendering the main content of a forum post, including like/dislike controls and post metadata.
 struct ForumCard: View {
     
     @ObservedObject
     private var viewModel: ForumCardDetailViewModel
     
+    /// Creates a ForumCard view with the provided view model.
+    /// - Parameter model: The detail view model used to populate the view.
     init(model: ForumCardDetailViewModel) {
         self.viewModel = model
     }
     
+    /// The body of the ForumCard, showing vote toggles and post metadata and content.
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
-            VStack(spacing: 8) {
-                ToggleButton(
-                    isSelected: viewModel.post.userReaction == .like,
-                    action: viewModel.toggleLike,
-                    image: Image(systemName: "chevron.up")
-                ).disabled(viewModel.isReacting)
+            if case let .loaded(post) = viewModel.currentState {
+                VStack(spacing: 8) {
+                    ToggleButton(
+                        isSelected: post.userReaction == .like,
+                        action: viewModel.toggleLike,
+                        image: Image(systemName: "chevron.up")
+                    ).disabled(viewModel.isReacting)
+                    
+                    Text(String(post.netLikes))
+                    
+                    ToggleButton(
+                        isSelected: post.userReaction == .dislike,
+                        action: viewModel.toggleDislike,
+                        image: Image(systemName: "chevron.down")
+                    ).disabled(viewModel.isReacting)
+                }
                 
-                Text(String(viewModel.post.netLikes))
-                
-                ToggleButton(
-                    isSelected: viewModel.post.userReaction == .dislike,
-                    action: viewModel.toggleDislike,
-                    image: Image(systemName: "chevron.down")
-                ).disabled(viewModel.isReacting)
-            }
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text(viewModel.post.dateCreated.formatted())
-                    .font(Theme.Fonts.caption)
-                
-                Text(viewModel.post.title)
-                    .font(Theme.Fonts.heading.bold())
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                Text(viewModel.post.content)
-                    .font(Theme.Fonts.body)
-                    .fixedSize(horizontal: false, vertical: true)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(post.dateCreated.formatted())
+                        .font(Theme.Fonts.caption)
+                    
+                    Text(post.title)
+                        .font(Theme.Fonts.heading.bold())
+                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    Text(post.content)
+                        .font(Theme.Fonts.body)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

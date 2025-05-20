@@ -29,9 +29,152 @@
 		427ECBDF2DD522600053101A /* BeerHopperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeerHopperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4253348C2DDC1DF00051563E /* Exceptions for "BeerHopper" folder in "BeerHopperTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets/Fonts/OFL.txt,
+				Assets/Fonts/README.txt,
+				"Assets/Fonts/Roboto-Italic-VariableFont_wdth,wght.ttf",
+				"Assets/Fonts/Roboto-VariableFont_wdth,wght.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Black.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-BlackItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Bold.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-BoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraBold.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraLight.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraLightItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Italic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Light.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-LightItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Medium.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-MediumItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Regular.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-SemiBold.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-SemiBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Thin.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ThinItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Black.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-BlackItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Bold.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-BoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraBold.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraLight.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraLightItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Italic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Light.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-LightItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Medium.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-MediumItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Regular.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-SemiBold.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-SemiBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Thin.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ThinItalic.ttf",
+				"Assets/Fonts/static/Roboto-Black.ttf",
+				"Assets/Fonts/static/Roboto-BlackItalic.ttf",
+				"Assets/Fonts/static/Roboto-Bold.ttf",
+				"Assets/Fonts/static/Roboto-BoldItalic.ttf",
+				"Assets/Fonts/static/Roboto-ExtraBold.ttf",
+				"Assets/Fonts/static/Roboto-ExtraBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto-ExtraLight.ttf",
+				"Assets/Fonts/static/Roboto-ExtraLightItalic.ttf",
+				"Assets/Fonts/static/Roboto-Italic.ttf",
+				"Assets/Fonts/static/Roboto-Light.ttf",
+				"Assets/Fonts/static/Roboto-LightItalic.ttf",
+				"Assets/Fonts/static/Roboto-Medium.ttf",
+				"Assets/Fonts/static/Roboto-MediumItalic.ttf",
+				"Assets/Fonts/static/Roboto-Regular.ttf",
+				"Assets/Fonts/static/Roboto-SemiBold.ttf",
+				"Assets/Fonts/static/Roboto-SemiBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto-Thin.ttf",
+				"Assets/Fonts/static/Roboto-ThinItalic.ttf",
+			);
+			target = 427ECBD42DD522600053101A /* BeerHopperTests */;
+		};
+		4253348D2DDC1DF00051563E /* Exceptions for "BeerHopper" folder in "BeerHopperUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets/Fonts/OFL.txt,
+				Assets/Fonts/README.txt,
+				"Assets/Fonts/Roboto-Italic-VariableFont_wdth,wght.ttf",
+				"Assets/Fonts/Roboto-VariableFont_wdth,wght.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Black.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-BlackItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Bold.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-BoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraBold.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraLight.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ExtraLightItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Italic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Light.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-LightItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Medium.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-MediumItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Regular.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-SemiBold.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-SemiBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-Thin.ttf",
+				"Assets/Fonts/static/Roboto_Condensed-ThinItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Black.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-BlackItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Bold.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-BoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraBold.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraLight.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ExtraLightItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Italic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Light.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-LightItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Medium.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-MediumItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Regular.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-SemiBold.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-SemiBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-Thin.ttf",
+				"Assets/Fonts/static/Roboto_SemiCondensed-ThinItalic.ttf",
+				"Assets/Fonts/static/Roboto-Black.ttf",
+				"Assets/Fonts/static/Roboto-BlackItalic.ttf",
+				"Assets/Fonts/static/Roboto-Bold.ttf",
+				"Assets/Fonts/static/Roboto-BoldItalic.ttf",
+				"Assets/Fonts/static/Roboto-ExtraBold.ttf",
+				"Assets/Fonts/static/Roboto-ExtraBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto-ExtraLight.ttf",
+				"Assets/Fonts/static/Roboto-ExtraLightItalic.ttf",
+				"Assets/Fonts/static/Roboto-Italic.ttf",
+				"Assets/Fonts/static/Roboto-Light.ttf",
+				"Assets/Fonts/static/Roboto-LightItalic.ttf",
+				"Assets/Fonts/static/Roboto-Medium.ttf",
+				"Assets/Fonts/static/Roboto-MediumItalic.ttf",
+				"Assets/Fonts/static/Roboto-Regular.ttf",
+				"Assets/Fonts/static/Roboto-SemiBold.ttf",
+				"Assets/Fonts/static/Roboto-SemiBoldItalic.ttf",
+				"Assets/Fonts/static/Roboto-Thin.ttf",
+				"Assets/Fonts/static/Roboto-ThinItalic.ttf",
+			);
+			target = 427ECBDE2DD522600053101A /* BeerHopperUITests */;
+		};
+		425334922DDC21040051563E /* Exceptions for "BeerHopper" folder in "BeerHopper" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 427ECBC72DD5225E0053101A /* BeerHopper */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		427ECBCA2DD5225E0053101A /* BeerHopper */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				425334922DDC21040051563E /* Exceptions for "BeerHopper" folder in "BeerHopper" target */,
+				4253348C2DDC1DF00051563E /* Exceptions for "BeerHopper" folder in "BeerHopperTests" target */,
+				4253348D2DDC1DF00051563E /* Exceptions for "BeerHopper" folder in "BeerHopperUITests" target */,
+			);
 			path = BeerHopper;
 			sourceTree = "<group>";
 		};
@@ -399,7 +542,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HSA2LNH32G;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/BeerHopper/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -432,7 +576,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HSA2LNH32G;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/BeerHopper/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

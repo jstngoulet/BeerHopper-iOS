@@ -12,27 +12,30 @@ struct DashboardTabView: View {
     @State
     private var selectedTab: Int = 0
     
+    @State
+    private var isAuthenticated: Bool
+    
     init(tabNumber: Int) {
         self._selectedTab = State(initialValue: tabNumber)
-        
-        //  Login here for now
-        Task {
-            _ = try? await AuthAPI.login(
-                email: "test@test.com",
-                password: "password"
-            )
-        }
+        self.isAuthenticated = RESTClient.isLoggedIn
+        login()
     }
     
     init() {
         self._selectedTab = State(initialValue: 0)
+        self.isAuthenticated = RESTClient.isLoggedIn
+        login()
+    }
+    
+    private func login() {
         
         //  Login here for now
         Task {
-            _ = try? await AuthAPI.login(
+            guard let loginResult = try? await AuthAPI.login(
                 email: "brewer.bob@brewmail.com",
                 password: "BrewerBob22"
-            )
+            ) else { return }
+            self.isAuthenticated = loginResult.success
         }
     }
     
@@ -80,10 +83,16 @@ struct DashboardTabView: View {
                     Label("Recipes", systemImage: "stove")
                 }.tag(3)
             
-            LoginView()
-                .tabItem {
-                    Label("Login", systemImage: "person.crop.circle")
+            if isAuthenticated {
+                FeedView().tabItem {
+                    Label("Feed", systemImage: "person.crop.circle")
                 }.tag(4)
+            } else {
+                LoginView(isLoggedIn: $isAuthenticated)
+                    .tabItem {
+                        Label("Login", systemImage: "person.crop.circle")
+                    }.tag(4)
+            }
         }
     }
 }

@@ -4,11 +4,10 @@
 //
 //  Created by Justin Goulet on 5/14/25.
 //
+import Foundation
 
-
-struct Grain: Codable {
+struct Grain: Codable, Hashable, Identifiable {
     let id: String
-    let dateUpdated: String
     let name: String
     let lovibond: Double
     let potentialSG: Double
@@ -18,7 +17,8 @@ struct Grain: Codable {
     let usage: String
     let flavorDescriptors: [String]
     let commonBeerStyles: [String]
+    let substitutes: [Grain]?
     let notes: String
-    let dateAdded: String
-    let lastUpdated: String
+    let dateAdded: Date
+    let lastUpdated: Date
 }

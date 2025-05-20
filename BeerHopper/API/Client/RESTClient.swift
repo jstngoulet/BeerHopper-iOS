@@ -38,6 +38,21 @@ class RESTClient: NSObject {
         case unableToDecodeJSON
         case requestNotCreated
         case other(String)
+        
+        var errorDescription: String? {
+            switch self {
+            case .invalidURL(let url):
+                return "Invalid URL: \(url)"
+            case .noDataReturned:
+                return "No data returned from server"
+            case .unableToDecodeJSON:
+                return "Unable to decode JSON from server"
+            case .requestNotCreated:
+                return "Unable to create URLRequest"
+            case .other(let message):
+                return message
+            }
+        }
     }
     
     private(set) static var currentENV: Host = .development
