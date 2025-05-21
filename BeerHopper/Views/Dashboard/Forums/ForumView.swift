@@ -85,7 +85,6 @@ struct ForumView: View {
                         }
                         
                     }.listStyle(PlainListStyle())
-                    
                         .searchable(text: $viewModel.searchText)
                         .refreshable {
                             await viewModel.getForumPosts(shouldResetPage: true)
@@ -93,7 +92,13 @@ struct ForumView: View {
                         .navigationTitle("Forum Posts")
                         .navigationBarTitleDisplayMode(.inline)
                 case .error(let err):
-                    Text(err.localizedDescription)
+                    ZeroStateView(
+                        viewModel: ZeroStateViewModel(
+                            image: Image(systemName: "exclamationmark.warninglight"),
+                            title: err.localizedDescription,
+                            buttons: nil
+                        )
+                    )
                 }
             }
         }

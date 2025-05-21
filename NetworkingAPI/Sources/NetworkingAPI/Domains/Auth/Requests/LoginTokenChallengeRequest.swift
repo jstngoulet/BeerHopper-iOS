@@ -1,26 +1,28 @@
 //
-//  LoginRequest.swift
-//  BeerHopper
+//  LoginTokenChallengeRequest.swift
+//  NetworkingAPI
 //
-//  Created by Justin Goulet on 5/15/25.
+//  Created by Justin Goulet on 5/20/25.
 //
+
 import Foundation
 
-class LoginRequest: POSTRequest {
+final class LoginTokenChallengeRequest: POSTRequest {
     
     init(
         email: String,
         password: String,
-        authCode: String? = nil
+        clientToken: String
     ) {
         super.init(
             body: [
                 "email": email,
                 "password": password,
-                "authCode": authCode ?? NSNull()
+                "token": clientToken
             ],
-            path: "/api/auth/login",
+            path: "/api/auth/login/challenge",
             contentType: .json
         )
     }
+    
 }

@@ -73,28 +73,6 @@ actor RESTClient: NSObject {
         "API-Token": "b79cb3ba-745e-5d9a-8903-4a02327a7e09"   //  Token only valid locally
     ]
     
-    //  Keep track of the current token
-    public struct Token: Codable {
-        let idToken: String?
-        let refreshToken: String?
-        let expiresIn: Int?
-        
-        var isExpired: Bool {
-            guard let expiresIn, idToken != nil
-            else { return true }
-            
-            //  Date logic should be based on date, not variable expires in
-            //  For now, jsut return false
-            return false
-        }
-        
-        public init(from loginResult: LoginResult) {
-            idToken = loginResult.idToken
-            refreshToken = loginResult.refreshToken
-            expiresIn = loginResult.expiresIn
-        }
-    }
-    
     private static var idToken: String? {
         didSet {
             if let idToken {
@@ -105,21 +83,20 @@ actor RESTClient: NSObject {
         }
     }
     
-    private static var token: Token? {
-        didSet {
-            idToken = token?.idToken
-        }
-    }
-    
     /// The user is logged in if their token is not empty and not yet expired
     @MainActor
     public
     static var isLoggedIn: Bool
-    { token != nil }
+    {
+        if idToken != nil { return true }
+        if let token = TokenStore.retrieveToken(withKey: "id_token") {
+            set(token: token)
+            return true
+        } else { return false }
+    }
     
-    public
     static func set(token: Token?) {
-        RESTClient.token = token
+        idToken = token?.idToken
     }
     
     @discardableResult

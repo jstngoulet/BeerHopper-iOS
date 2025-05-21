@@ -24,53 +24,22 @@ class LoginViewModel: ObservableObject {
     @Published
     var isLoggedIn: Bool = false
     
-    @Published
-    var email: String = "" {
-        didSet {
-            validateFields()
-        }
-    }
-    
-    @Published
-    var password: String = "" {
-        didSet {
-            validateFields()
-        }
-    }
-    
-    @Published
-    var isValidated: Bool = false
-    
-    func login() async {
-        do {
-            let loginResult = try await AuthAPI.login(
-                email: email,
-                password: password
-            )
-            
-            await MainActor.run {
-                isLoggedIn = loginResult.success
-            }
-            
-        } catch {
-            print("Error: \(error.localizedDescription)")
-        }
-    }
-    
     func forgotPassword() {
         
     }
     
-    private func validateFields() {
-        isValidated = isEmailValid() && isPasswordValid()
-    }
-    
-    private func isEmailValid() -> Bool {
-        !email.isEmpty
-    }
-    
-    private func isPasswordValid() -> Bool {
-        !password.isEmpty
+    func login(with email: String, password: String) async {
+        do {
+            let result = try await AuthAPI.login(email: email, password: password)
+
+            await MainActor.run {
+                isLoggedIn = result.isLoggedIn
+            }
+            
+            print("Result: \(result)")
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
     }
 }
 
@@ -82,19 +51,35 @@ struct LoginView: View {
     @State
     private var isSecureTextVisible: Bool = false
     
+    @State
+    private var email: String
+    
+    @State
+    private var password: String
+    
+    @State
+    private var isValidated: Bool
+    
     @Binding
     private var isLoggedIn: Bool
     
     init(isLoggedIn: Binding<Bool>) {
         self._isLoggedIn = isLoggedIn
+        self.email = ""
+        self.password = ""
+        self.isValidated = false
     }
     
     var body: some View {
         NavigationStack {
+            
             VStack {
                 Spacer()
                 
-                TextField("Email", text: $viewModel.email)
+                TextField(
+                    "Email",
+                    text: $email
+                )
                     .textFieldStyle(
                         EmailTextFieldStyle(
                             leftIcon: Image(systemName: "person")
@@ -102,7 +87,10 @@ struct LoginView: View {
                     )
                 
                 if isSecureTextVisible {
-                    SecureField("Password", text: $viewModel.password)
+                    SecureField(
+                        "Password",
+                        text: $password
+                    )
                         .textFieldStyle(
                             EmailTextFieldStyle(
                                 leftIcon: Image(systemName: "unlock")
@@ -111,7 +99,10 @@ struct LoginView: View {
                         .padding(.bottom)
                         .frame(maxWidth: .infinity)
                 } else {
-                    TextField("Password", text: $viewModel.password)
+                    TextField(
+                        "Password",
+                        text: $password
+                    )
                         .textFieldStyle(
                             EmailTextFieldStyle(
                                 leftIcon: Image(systemName: "lock")
@@ -121,6 +112,26 @@ struct LoginView: View {
                 
                 Spacer()
                 
+                HStack(spacing: 8) {
+                    InternalSignInButton(
+                        email: $email,
+                        password: $password,
+                        isValidated: $isValidated
+                    ) { result in
+                        debugPrint("Result: \(result)")
+                        if case .success = result {
+                            isLoggedIn = true
+                        } else {
+                            isLoggedIn = false
+                        }
+                    }
+                    
+                    //  Add Google Sign In Button
+                    InternalGoogleSignInButton { result in
+                        print("Result: \(result)")
+                    }
+                }.padding(.vertical, 8)
+                
                 Button("Forgot Password") {
                     viewModel.forgotPassword()
                 }
@@ -129,16 +140,20 @@ struct LoginView: View {
                 
                 Button("Login") {
                     Task {
-                        await viewModel.login()
+                        await viewModel.login(
+                            with: email,
+                            password: password
+                        )
+                        isLoggedIn = viewModel.isLoggedIn
                     }
                 }
                 .buttonStyle(
                     PrimaryButtonStyle(
-                        isDisabled: !viewModel.isValidated
+                        isDisabled: !isValidated
                     )
                 )
                 .frame(maxWidth: .infinity)
-                .disabled(!viewModel.isValidated)
+                .disabled(!isValidated)
                 
             }
             .padding(.horizontal)
@@ -159,19 +174,26 @@ struct LoginView: View {
     
 }
 
-struct BlurView: UIViewRepresentable {
-    
-    let style: UIBlurEffect.Style
-    
-    func makeUIView(context: Context) -> UIView {
-        UIVisualEffectView(effect: UIBlurEffect(style: style))
-    }
-    
-    func updateUIView(_ uiView: UIView, context: Context) {}
-    
-}
+
 
 
 #Preview("Base Login") {
     LoginView(isLoggedIn: .constant(false))
+}
+
+
+#Preview("Internal Button") {
+    HStack {
+        InternalSignInButton(
+            email: .constant(""),
+            password: .constant(""),
+            isValidated: .constant(true)
+        ) { result in
+            print("Result: \(result)")
+        }
+        
+        InternalGoogleSignInButton { result in
+            print("Result: \(result)")
+        }
+    }
 }

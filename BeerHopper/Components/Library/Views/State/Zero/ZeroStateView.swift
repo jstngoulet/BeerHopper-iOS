@@ -55,6 +55,7 @@ struct ZeroStateView: View {
                     .font(Theme.Fonts.heading)
                     .fontWeight(.bold)
                     .foregroundStyle(Theme.Colors.textPrimary)
+                    .multilineTextAlignment(.center)
             }
             
             if let buttons = viewModel.buttons {
@@ -72,6 +73,7 @@ struct ZeroStateView: View {
                                         .frame(width: 14, height: 14)
                                 }
                                 Text(btnConfig.title)
+                                    .multilineTextAlignment(.center)
                             }
                         }
                             .padding(.vertical, 8)
