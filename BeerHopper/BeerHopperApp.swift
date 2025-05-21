@@ -19,7 +19,7 @@ struct BeerHopperApp: App {
                 .onAppear {
                     
                     GooglePassportProvider.configure(
-                        "871905328220-0damoj4rs1oaf62lq2ibm225664q6ntp.apps.googleusercontent.com" as NSString
+                        (ProcessInfo.processInfo.environment["CLIENT_ID"] ?? "") as NSString
                     )
                     
                     Task {
