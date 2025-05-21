@@ -17,7 +17,6 @@ public actor GooglePassportProvider: PassportProvider {
     static var isLoggedIn: Bool
     { GIDSignIn.sharedInstance.currentUser != nil }
     
-    
     /// Represents specific errors that may occur during the Google sign-in process.
     public enum GoogleSignInError: LocalizedError {
         case custom(Error)

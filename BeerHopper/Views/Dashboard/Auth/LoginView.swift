@@ -31,7 +31,7 @@ class LoginViewModel: ObservableObject {
     func login(with email: String, password: String) async {
         do {
             let result = try await AuthAPI.login(email: email, password: password)
-
+            
             await MainActor.run {
                 isLoggedIn = result.isLoggedIn
             }
@@ -45,69 +45,49 @@ class LoginViewModel: ObservableObject {
 
 struct LoginView: View {
     
-    @StateObject
-    private var viewModel: LoginViewModel = LoginViewModel()
+    @StateObject private var viewModel = LoginViewModel()
     
-    @State
-    private var isSecureTextVisible: Bool = false
+    @State private var isSecureTextVisible = false
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var isValidated: Bool = false
     
-    @State
-    private var email: String
-    
-    @State
-    private var password: String
-    
-    @State
-    private var isValidated: Bool
-    
-    @Binding
-    private var isLoggedIn: Bool
+    @Binding private var isLoggedIn: Bool
     
     init(isLoggedIn: Binding<Bool>) {
         self._isLoggedIn = isLoggedIn
-        self.email = ""
-        self.password = ""
-        self.isValidated = false
     }
     
     var body: some View {
         NavigationStack {
-            
-            VStack {
+            VStack(spacing: 16) {
                 Spacer()
                 
-                TextField(
-                    "Email",
-                    text: $email
-                )
+                TextField("Email", text: $email)
                     .textFieldStyle(
                         EmailTextFieldStyle(
                             leftIcon: Image(systemName: "person")
                         )
-                    )
+                    ).textInputAutocapitalization(.never)
                 
                 if isSecureTextVisible {
-                    SecureField(
-                        "Password",
-                        text: $password
-                    )
+                    SecureField("Password", text: $password)
                         .textFieldStyle(
                             EmailTextFieldStyle(
                                 leftIcon: Image(systemName: "unlock")
                             )
                         )
+                        .textInputAutocapitalization(.never)
                         .padding(.bottom)
                         .frame(maxWidth: .infinity)
                 } else {
-                    TextField(
-                        "Password",
-                        text: $password
-                    )
+                    TextField("Password", text: $password)
                         .textFieldStyle(
                             EmailTextFieldStyle(
                                 leftIcon: Image(systemName: "lock")
                             )
                         )
+                        .textInputAutocapitalization(.never)
                 }
                 
                 Spacer()
@@ -126,11 +106,11 @@ struct LoginView: View {
                         }
                     }
                     
-                    //  Add Google Sign In Button
                     InternalGoogleSignInButton { result in
                         print("Result: \(result)")
                     }
-                }.padding(.vertical, 8)
+                }
+                .padding(.vertical, 8)
                 
                 Button("Forgot Password") {
                     viewModel.forgotPassword()
@@ -140,11 +120,7 @@ struct LoginView: View {
                 
                 Button("Login") {
                     Task {
-                        await viewModel.login(
-                            with: email,
-                            password: password
-                        )
-                        isLoggedIn = viewModel.isLoggedIn
+                        await viewModel.login(with: email, password: password)
                     }
                 }
                 .buttonStyle(
@@ -154,24 +130,21 @@ struct LoginView: View {
                 )
                 .frame(maxWidth: .infinity)
                 .disabled(!isValidated)
-                
             }
             .padding(.horizontal)
             .navigationDestination(for: LoginViewModel.LoginRoute.self) { route in
                 switch route {
                 case .home:
-                    LazyView {
-                        SearchView()
-                    }
+                    LazyView { SearchView() }
                 case .forgotPassword:
                     LazyView { SearchView() }
                 }
             }
-        }.onChange(of: viewModel.isLoggedIn) { oldValue, newValue in
+        }
+        .onChange(of: viewModel.isLoggedIn) { _, newValue in
             self.isLoggedIn = newValue
         }
     }
-    
 }
 
 
@@ -185,8 +158,8 @@ struct LoginView: View {
 #Preview("Internal Button") {
     HStack {
         InternalSignInButton(
-            email: .constant(""),
-            password: .constant(""),
+            email: .constant("email"),
+            password: .constant("password"),
             isValidated: .constant(true)
         ) { result in
             print("Result: \(result)")

@@ -34,7 +34,8 @@ final class InternalGoogleSignInButtonModel: ObservableObject {
     func handleSignIn() {
         guard let parentController,
               parentController.isViewLoaded,
-              parentController.view.window != nil else {
+              parentController.view.window != nil
+        else {
             tokenCallback(
                 .failure(
                     InternalGoogleSignInError.unableToObtainController
