@@ -6,6 +6,7 @@
 //
 import XCTest
 @testable import BeerHopper
+@testable import NetworkingAPI
 
 final class AuthAPITests: BeerHopperTests {
     

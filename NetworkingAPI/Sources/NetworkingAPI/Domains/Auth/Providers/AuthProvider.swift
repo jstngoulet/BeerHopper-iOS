@@ -9,7 +9,7 @@ import Foundation
 
 /// Coordinates authentication by delegating to injected PassportProvider implementations.
 /// Tries providers in priority order (e.g., Google, then Internal).
-public final class AuthProvider {
+public actor AuthProvider {
     
     private let providers: [PassportProvider]
     

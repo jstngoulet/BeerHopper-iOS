@@ -12,7 +12,7 @@ enum PassportError: LocalizedError {
     case notSetup
 }
 
-public protocol PassportProvider: AnyObject {
+public protocol PassportProvider: AnyObject, Sendable {
     
     func handleSignIn(from url: URL) async
     

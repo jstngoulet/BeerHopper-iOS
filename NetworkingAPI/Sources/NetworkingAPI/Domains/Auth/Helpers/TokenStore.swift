@@ -25,7 +25,7 @@ public struct Token: Codable, Sendable {
         self.expiresDate = Date().addingTimeInterval(TimeInterval(expiresIn))
     }
     
-    init(_ idToken: String, _ refreshToken: String, _ expiresIn: Int) {
+    public init(_ idToken: String, _ refreshToken: String, _ expiresIn: Int) {
         self.idToken = idToken
         self.refreshToken = refreshToken
         self.expiresIn = expiresIn

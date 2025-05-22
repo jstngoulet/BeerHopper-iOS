@@ -11,7 +11,7 @@ class LoginRequest: POSTRequest {
     init(
         email: String,
         password: String,
-        authCode: String? = nil
+        authCode: String? = nil     //  If supports PKCE
     ) {
         super.init(
             body: [
