@@ -64,7 +64,7 @@ final class ForumAPI: NSObject {
     ) async throws -> ForumPostResponse {
         do {
             guard let responseData = try await RESTClient.perform(
-                GetAllPostsRequest(
+                GetPopularPostsRequest(
                     page: page,
                     limit: limit
                 ),

@@ -12,34 +12,30 @@ enum PassportError: LocalizedError {
     case notSetup
 }
 
-protocol PassportProvider: AnyObject {
+public protocol PassportProvider: AnyObject {
     
-    static func handleSignIn(from url: URL)
-    
-    static func configure(_ config: AnyObject?)
+    func handleSignIn(from url: URL) async
     
     @discardableResult
-    static func restorePreviousSession() async throws -> Token
+    func restorePreviousSession() async throws -> Token
     
-    static func logout()
+    func logout() async
     
     @discardableResult
-    static func handleSignInButton(
+    func handleSignInButton(
         from controller: UIViewController
     ) async throws -> Token
     
-    static var isLoggedIn: Bool { get }
+    func isLoggedIn() async -> Bool
     
-    static func refreshToken() async throws -> Token
+    func refreshToken() async throws -> Token
 }
 
 //  Optional functions
-extension PassportProvider {
+public extension PassportProvider {
     
-    static func handleSignInButton(from controller: UIViewController) async throws -> Token {
+    func handleSignInButton(from controller: UIViewController) async throws -> Token {
         throw PassportError.notSetup
     }
-    
-    static func configure(_ config: AnyObject?) { }
     
 }

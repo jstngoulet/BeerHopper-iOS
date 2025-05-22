@@ -10,21 +10,28 @@ import NetworkingAPI
 
 @main
 struct BeerHopperApp: App {
+    // Initialize the AuthProvider with both providers
+    private let authProvider = AuthProvider(providers: [
+        GooglePassportProvider.shared,
+        InternalPassportProvider.shared
+    ])
+    
     var body: some Scene {
         WindowGroup {
             DashboardTabView()
                 .onOpenURL { url in
-                    AuthProvider.handleSignIn(from: url)
+                    Task {
+                        await authProvider.handleSignIn(from: url)
+                    }
                 }
                 .onAppear {
-                    
-                    GooglePassportProvider.configure(
-                        (ProcessInfo.processInfo.environment["CLIENT_ID"] ?? "") as NSString
-                    )
-                    
                     Task {
+                        if let clientID = ProcessInfo.processInfo.environment["CLIENT_ID"] {
+                            await GooglePassportProvider.configure(clientID)
+                        }
+                        
                         do {
-                            try await AuthProvider.restorePreviousSession()
+                            try await authProvider.restorePreviousSession()
                         } catch {
                             print("Not signed in: \(error.localizedDescription)")
                         }

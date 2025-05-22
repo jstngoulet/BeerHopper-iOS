@@ -69,6 +69,7 @@ struct LoginView: View {
                             leftIcon: Image(systemName: "person")
                         )
                     ).textInputAutocapitalization(.never)
+                    .keyboardType(.emailAddress)
                 
                 if isSecureTextVisible {
                     SecureField("Password", text: $password)
@@ -78,6 +79,7 @@ struct LoginView: View {
                             )
                         )
                         .textInputAutocapitalization(.never)
+                        .keyboardType(.default)
                         .padding(.bottom)
                         .frame(maxWidth: .infinity)
                 } else {
@@ -88,6 +90,7 @@ struct LoginView: View {
                             )
                         )
                         .textInputAutocapitalization(.never)
+                        .keyboardType(.default)
                 }
                 
                 Spacer()
