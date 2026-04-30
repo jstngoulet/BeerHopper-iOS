@@ -28,6 +28,7 @@ Deliverables:
 - MVVM module map and layer ownership.
 - Swift-for-Android portability boundaries for non-UI core code.
 - Design token list and component inventory.
+- iOS 26+ Liquid Glass compatibility requirements.
 - Deep-link map from web to iOS.
 - MVP scope and non-goals.
 
@@ -38,6 +39,7 @@ Acceptance:
 - Engineering accepts MVVM and layer boundaries.
 - Engineering accepts which code is pure Swift shared-core candidate versus iOS-only implementation.
 - Design direction is approved as native iOS, not a web clone.
+- Liquid Glass usage rules are approved for dense brew-day and data-heavy screens.
 
 ## Phase 1: App Shell and Design System
 
@@ -46,6 +48,7 @@ Deliverables:
 - Fresh SwiftUI app structure in the existing repo.
 - App shell with tabs, route coordinator, and dependency assembly.
 - Design system tokens for colors, typography, spacing, shape, shadows, status, and metrics.
+- Liquid Glass-compatible surface/material tokens and solid accessibility fallbacks.
 - Reusable async, row, badge, metric, and remote image components.
 - First-party API, data, secure, and analytics layer skeletons.
 - Pure Swift shared-core candidate folder or package for domain/API/data contracts.
@@ -59,6 +62,7 @@ Acceptance:
 - MVVM boundaries are visible in the first feature skeleton.
 - Apple-specific adapters are isolated behind protocols where future Swift-for-Android reuse matters.
 - Dynamic Type, dark mode, and high contrast work on shell screens.
+- Liquid Glass/material surfaces remain legible on iOS 26+ across light/dark/high-contrast modes.
 - Unit tests cover route resolution and session state.
 
 ## Phase 2: Core Public Experience

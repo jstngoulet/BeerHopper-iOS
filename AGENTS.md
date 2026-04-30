@@ -23,7 +23,9 @@ If iOS behavior conflicts with product requirements, align the app to product do
 
 ## Design Rules
 
+- Target iOS 26+ and make the app Liquid Glass compatible.
 - Use SwiftUI and native Apple navigation, sheets, lists, forms, menus, swipe actions, haptics, Dynamic Type, SF Symbols, and system materials.
+- Prefer platform Liquid Glass/system material behavior over custom glass effects, with solid fallbacks for dense data and accessibility.
 - Mirror BeerHopper brand tokens and domain vocabulary, but do not copy web layouts directly.
 - Prefer dense, scan-friendly operational screens for brew sessions, recipes, and brewery management.
 - Use the design system package for colors, typography, spacing, components, and state styles.

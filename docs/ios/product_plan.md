@@ -2,7 +2,7 @@
 
 ## Objective
 
-Build a SwiftUI BeerHopper app that pairs with the website and API while delivering a native Apple experience. The iOS app should help users discover beer content, participate in the community, manage brewing work, and run brew-day sessions from a phone.
+Build an iOS 26+ SwiftUI BeerHopper app that pairs with the website and API while delivering a native Apple experience. The iOS app should help users discover beer content, participate in the community, manage brewing work, and run brew-day sessions from a phone.
 
 ## Repository Strategy
 
@@ -19,6 +19,7 @@ Restart rules:
 ## Product Principles
 
 - **Native first:** use Apple platform patterns for navigation, lists, search, forms, sheets, menus, notifications, passkeys, and sharing.
+- **iOS 26+ visual baseline:** design and implementation should be compatible with the iOS 26 Liquid Glass system language, including translucent materials, depth, toolbar/tab treatment, and legibility rules.
 - **No external libraries:** use SwiftUI, Foundation, URLSession, Observation/Combine as needed, Security/Keychain APIs, SwiftData/Core Data as approved, XCTest, and other Apple frameworks only.
 - **MVVM throughout:** views render state, view models coordinate user intent and async work, models represent domain/API data, and services own IO boundaries.
 - **Future Swift portability:** keep domain models, API clients, data repositories, secure abstractions, and analytics contracts in pure Swift where practical so a future Swift-for-Android client can reuse the non-UI core.

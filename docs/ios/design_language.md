@@ -1,5 +1,20 @@
 # BeerHopper iOS Design Language
 
+## Platform Baseline
+
+BeerHopper iOS targets iOS 26+ as the design baseline. The app must be Liquid Glass compatible while still feeling operational, calm, and scan-friendly for brewing workflows.
+
+Liquid Glass compatibility means:
+
+- Use system materials and native container behavior before custom translucent effects.
+- Let toolbars, tab bars, sheets, menus, and navigation surfaces inherit iOS 26 platform treatment where possible.
+- Keep content legible over translucent or layered surfaces in light, dark, high contrast, and accessibility text sizes.
+- Avoid stacking decorative blur/glass effects on top of dense brewing data.
+- Use depth to clarify navigation hierarchy, not as decoration.
+- Keep critical brew-day controls, timers, readings, and warnings on stable, high-contrast surfaces.
+- Test both bright content imagery and dark beer/brewery imagery behind translucent surfaces.
+- Provide fallback solid surfaces where Liquid Glass treatment reduces readability or accessibility.
+
 ## Design Goal
 
 BeerHopper iOS should feel like an Apple app with BeerHopper character. The app should borrow the web brand palette, domain hierarchy, and information density, while using native SwiftUI structure, system typography, SF Symbols, platform motion, and platform accessibility.
@@ -19,6 +34,7 @@ Web design traits:
 iOS translation:
 
 - Use `NavigationStack`, `TabView`, `List`, `Form`, `Section`, `Searchable`, `ToolbarItem`, `Menu`, `ConfirmationDialog`, and `.sheet`.
+- Prefer system Liquid Glass-compatible navigation, tab, toolbar, sheet, menu, and material behaviors over custom chrome.
 - Use cards sparingly. Prefer native grouped lists and section backgrounds for repeated mobile workflows.
 - Use large titles only for top-level tabs. Detail screens should use inline titles when content density matters.
 - Use SF Symbols before custom icons. Use BeerHopper brand assets for app icon, empty states, and selected brand moments.
@@ -46,6 +62,7 @@ Rules:
 
 - Expose colors as semantic SwiftUI values, not raw hex calls in feature views.
 - Respect system light/dark and high-contrast variants.
+- Define surface tokens that can resolve to Liquid Glass materials or solid fallback colors depending on context and accessibility.
 - Do not overuse amber. Use it for beer-domain accents, warnings, ratings, and brand highlights.
 - Do not create a one-note blue or amber app. Let content photography, beer styles, ingredient colors, and system surfaces carry variety.
 
@@ -69,9 +86,19 @@ Rules:
 
 - Base spacing scale: 4, 8, 12, 16, 20, 24, 32.
 - Compact content radius: 8.
-- Card/group radius: follow native grouped list and material defaults where possible.
+- Card/group radius: follow native grouped list, material, and Liquid Glass container defaults where possible.
 - Touch targets: minimum 44x44 points.
 - Dense rows should preserve scanability with consistent leading icons and trailing metadata.
+
+### Liquid Glass Surface Rules
+
+- Top-level tabs and navigation bars should use native system treatment.
+- Detail toolbars can use translucent/material treatment when surrounding content remains readable.
+- Dense operational panels should default to stable grouped backgrounds.
+- Modal sheets should use platform sheet materials and avoid custom full-screen overlays unless the workflow requires it.
+- Entity hero imagery may sit behind native material overlays only when text contrast is guaranteed.
+- Brew-day active controls should not float on low-contrast glass surfaces.
+- Destructive actions, warnings, and permission prompts need solid contrast and clear iconography.
 
 ## Component Direction
 
@@ -123,4 +150,5 @@ Reusable components should be designed as SwiftUI primitives:
 - Dynamic Type must not truncate critical brewing values or action labels.
 - Color cannot be the only status indicator.
 - Support reduce motion by avoiding nonessential animation.
+- Liquid Glass/material surfaces must pass contrast checks or switch to solid fallback treatment.
 - Haptics should confirm successful state changes and warn on destructive actions, but never replace visible feedback.

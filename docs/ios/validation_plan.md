@@ -3,6 +3,7 @@
 ## Review Checklist For This Planning PR
 
 - The app direction is SwiftUI-first and Apple-native.
+- The app targets iOS 26+ and is Liquid Glass compatible.
 - The existing repo is reused, but the stale project is restarted rather than patched incrementally.
 - The plan forbids external libraries and uses Apple frameworks only.
 - The app architecture is MVVM.
@@ -24,6 +25,7 @@ Every implementation PR should document:
 - Confirmation that no external libraries were added.
 - MVVM boundaries touched.
 - Shared-core versus iOS-only boundary impact.
+- Liquid Glass/material surface impact and solid fallback behavior.
 - Feature flags or server capability checks.
 - Analytics events added or changed.
 - Accessibility checks performed.
@@ -66,6 +68,7 @@ Every implementation PR should document:
 - Dynamic Type from XS through accessibility sizes.
 - VoiceOver labels on rows, metric tiles, timers, and destructive controls.
 - High contrast light and dark.
+- Liquid Glass/material surfaces with bright, dark, and image-heavy content behind them.
 - Reduce motion.
 - Color-blind safe status indicators.
 
