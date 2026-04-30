@@ -25,6 +25,7 @@ Deliverables:
 - Planning docs in this folder.
 - Restart decision for the existing repo.
 - Native-only dependency policy.
+- SwiftLint coding standard, including explicit `self.` and singleton avoidance.
 - MVVM module map and layer ownership.
 - Swift-for-Android portability boundaries for non-UI core code.
 - Design token list and component inventory.
@@ -37,6 +38,7 @@ Acceptance:
 - Product owner approves MVP scope.
 - Engineering accepts the restart path and native-only policy.
 - Engineering accepts MVVM and layer boundaries.
+- Engineering accepts SwiftLint as a development-only tool and agrees to explicit `self.` / no-singleton standards.
 - Engineering accepts which code is pure Swift shared-core candidate versus iOS-only implementation.
 - Design direction is approved as native iOS, not a web clone.
 - Liquid Glass usage rules are approved for dense brew-day and data-heavy screens.
@@ -47,8 +49,10 @@ Deliverables:
 
 - Fresh SwiftUI app structure in the existing repo.
 - App shell with tabs, route coordinator, and dependency assembly.
+- SwiftLint configuration with explicit self and singleton-avoidance rules.
 - Design system tokens for colors, typography, spacing, shape, shadows, status, and metrics.
 - Liquid Glass-compatible surface/material tokens and solid accessibility fallbacks.
+- Columnar layout primitives for compact, regular, and expanded contexts.
 - Reusable async, row, badge, metric, and remote image components.
 - First-party API, data, secure, and analytics layer skeletons.
 - Pure Swift shared-core candidate folder or package for domain/API/data contracts.
@@ -59,6 +63,8 @@ Acceptance:
 
 - App launches signed out and signed in without sample credentials.
 - No third-party dependencies are present.
+- SwiftLint runs locally/CI and enforces explicit `self.` where available.
+- BeerHopper-owned services are injected, not accessed as singletons.
 - MVVM boundaries are visible in the first feature skeleton.
 - Apple-specific adapters are isolated behind protocols where future Swift-for-Android reuse matters.
 - Dynamic Type, dark mode, and high contrast work on shell screens.

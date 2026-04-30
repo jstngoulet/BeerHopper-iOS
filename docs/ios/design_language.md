@@ -90,6 +90,36 @@ Rules:
 - Touch targets: minimum 44x44 points.
 - Dense rows should preserve scanability with consistent leading icons and trailing metadata.
 
+### Columnar Layout
+
+BeerHopper iOS should use a columnar layout system where the platform and content warrant it.
+
+Rules:
+
+- iPhone portrait defaults to one primary column.
+- Large iPhone landscape can use two columns for summary/detail, metric panels, or filter/result layouts when it improves scanning.
+- iPad and wider contexts should use two or three columns for dashboards, search results plus detail, brew-day summary plus active step, and brewery management.
+- Columns should be semantic, not decorative: navigation/list, primary content, inspector/context.
+- Column widths should follow content priority and Dynamic Type. Critical labels, metrics, timers, and buttons must not compress below usable sizes.
+- Liquid Glass sidebars/toolbars can frame columns, but dense column content should keep stable, legible surfaces.
+- Avoid nested card grids inside cards. Prefer native split/column structure, grouped lists, sections, and inspector panels.
+
+```mermaid
+flowchart LR
+    subgraph Compact[iPhone Portrait]
+        C1[Single Content Column]
+    end
+    subgraph Regular[Large iPhone Landscape / iPad]
+        R1[List or Navigation Column]
+        R2[Primary Detail Column]
+    end
+    subgraph Expanded[iPad Wide]
+        E1[Navigation Column]
+        E2[Primary Work Column]
+        E3[Inspector / Context Column]
+    end
+```
+
 ### Liquid Glass Surface Rules
 
 - Top-level tabs and navigation bars should use native system treatment.

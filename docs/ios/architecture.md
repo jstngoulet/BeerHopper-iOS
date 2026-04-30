@@ -23,6 +23,10 @@ Restart approach:
 
 No external libraries are allowed.
 
+Exception:
+
+- SwiftLint is allowed as a development-time quality tool. It must not become an app runtime dependency, and it must be configured from checked-in repo files so local and CI behavior match.
+
 Allowed foundation:
 
 - SwiftUI
@@ -45,6 +49,26 @@ Not allowed:
 - Third-party image loaders/caches
 - Third-party analytics SDKs unless a future policy exception is explicitly approved
 - Third-party realtime/socket clients unless the API contract makes a native implementation impractical and an exception is approved
+
+## Coding Standards
+
+Swift code should be linted with SwiftLint before implementation PRs are merged.
+
+Required style:
+
+- Use `self.` whenever it is available, including property access, method calls, and closure captures where Swift permits it.
+- Configure SwiftLint to require explicit self and disable or override any rule that treats explicit `self.` as redundant.
+- Prefer clear, domain-specific names over abbreviations.
+- Keep view models, repositories, services, and adapters small enough to review.
+- Keep SwiftUI views declarative; move side effects and async coordination into view models or services.
+- Avoid global mutable state.
+
+Singleton policy:
+
+- Avoid singletons for API clients, repositories, stores, auth providers, design registries, analytics, and realtime clients.
+- App-wide services should be owned by the app composition root and injected into view models/features.
+- If an Apple framework uses singleton-style access, wrap it behind a protocol adapter before use in feature code.
+- Test doubles should be injectable without changing production code.
 
 ## Target Module Map
 
@@ -167,6 +191,13 @@ The app target should own composition only:
 
 The app target should not contain API parsing, auth token storage, business rules, or feature-specific view models.
 
+Dependency rule:
+
+- The app shell builds concrete dependencies once.
+- Features receive dependencies through initializers or environment values.
+- View models depend on protocols.
+- No feature should call `Shared.instance`, `default`, or ad hoc global service access for BeerHopper-owned services.
+
 ## State Management
 
 Use MVVM with an observable view model per screen or cohesive flow and a small global app model:
@@ -208,6 +239,7 @@ Rules:
 - UI state is explicit: idle, loading, loaded, empty, failed, stale.
 - Views do not construct requests, read Keychain values, parse JSON, or mutate caches directly.
 - Repositories own data orchestration and hide API/cache decisions from view models.
+- View models should use injected dependencies and explicit `self.` in all instance references.
 
 ## Networking
 

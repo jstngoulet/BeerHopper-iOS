@@ -21,7 +21,9 @@ Restart rules:
 - **Native first:** use Apple platform patterns for navigation, lists, search, forms, sheets, menus, notifications, passkeys, and sharing.
 - **iOS 26+ visual baseline:** design and implementation should be compatible with the iOS 26 Liquid Glass system language, including translucent materials, depth, toolbar/tab treatment, and legibility rules.
 - **No external libraries:** use SwiftUI, Foundation, URLSession, Observation/Combine as needed, Security/Keychain APIs, SwiftData/Core Data as approved, XCTest, and other Apple frameworks only.
+- **SwiftLint enforced style:** use SwiftLint as a development-time quality tool, require explicit `self.`, and avoid singleton patterns.
 - **MVVM throughout:** views render state, view models coordinate user intent and async work, models represent domain/API data, and services own IO boundaries.
+- **Responsive columnar design:** use native columnar layout patterns for dashboards, search, brew-day, and management screens across compact, regular, and expanded contexts.
 - **Future Swift portability:** keep domain models, API clients, data repositories, secure abstractions, and analytics contracts in pure Swift where practical so a future Swift-for-Android client can reuse the non-UI core.
 - **Same product, mobile shape:** use the web product model and vocabulary, but optimize the interaction model for one-handed, repeated mobile use.
 - **Server-authoritative:** the API owns privacy, permissions, plan limits, claimability, role checks, and mutation validation.

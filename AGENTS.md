@@ -26,6 +26,7 @@ If iOS behavior conflicts with product requirements, align the app to product do
 - Target iOS 26+ and make the app Liquid Glass compatible.
 - Use SwiftUI and native Apple navigation, sheets, lists, forms, menus, swipe actions, haptics, Dynamic Type, SF Symbols, and system materials.
 - Prefer platform Liquid Glass/system material behavior over custom glass effects, with solid fallbacks for dense data and accessibility.
+- Use columnar layouts for iOS 26+ responsive surfaces where content benefits from side-by-side structure, especially iPad, large iPhone landscape, dashboards, brew-day metrics, and management screens.
 - Mirror BeerHopper brand tokens and domain vocabulary, but do not copy web layouts directly.
 - Prefer dense, scan-friendly operational screens for brew sessions, recipes, and brewery management.
 - Use the design system package for colors, typography, spacing, components, and state styles.
@@ -35,7 +36,10 @@ If iOS behavior conflicts with product requirements, align the app to product do
 
 - Restart stale implementation work in the existing repo when approved; do not preserve old app structure by default.
 - No external libraries. Use Apple frameworks and first-party code only.
+- SwiftLint is allowed as a development-time linting tool exception and should be configured in-repo.
+- Use `self.` whenever it is available; the lint configuration should require explicit self and not warn it away.
 - Use MVVM throughout: SwiftUI views, observable view models, domain/API models, repositories/services for IO.
+- Avoid singletons. Dependencies must be injected through initializers, environment values, protocol abstractions, or app composition roots.
 - Keep non-UI domain, API, data, validation, and analytics code pure Swift where practical so future Swift-for-Android work can reuse it.
 - Isolate Apple-specific APIs behind protocols and adapters; do not compromise native SwiftUI UX for portability.
 - Keep app targets thin. Shared domain, API, data, secure storage, design, analytics, realtime, and feature modules should have explicit ownership boundaries.

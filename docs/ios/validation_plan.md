@@ -6,7 +6,10 @@
 - The app targets iOS 26+ and is Liquid Glass compatible.
 - The existing repo is reused, but the stale project is restarted rather than patched incrementally.
 - The plan forbids external libraries and uses Apple frameworks only.
+- SwiftLint is accepted as a development-only quality tool and must enforce explicit `self.`.
 - The app architecture is MVVM.
+- BeerHopper-owned service singletons are avoided in favor of dependency injection.
+- Responsive columnar layouts are part of the design system.
 - The plan notes Swift-for-Android as a long-term goal while keeping iOS UI fully native.
 - The design language matches BeerHopper brand tokens without copying web layout.
 - Architecture separates app shell, design, API, data, secure, analytics, realtime, and feature layers.
@@ -23,6 +26,9 @@ Every implementation PR should document:
 - Screens or flows changed.
 - API endpoints touched.
 - Confirmation that no external libraries were added.
+- SwiftLint results and any rule suppressions.
+- Confirmation that `self.` is used where available in touched Swift code.
+- Confirmation that touched dependencies are injected rather than singleton accessed.
 - MVVM boundaries touched.
 - Shared-core versus iOS-only boundary impact.
 - Liquid Glass/material surface impact and solid fallback behavior.
@@ -69,6 +75,7 @@ Every implementation PR should document:
 - VoiceOver labels on rows, metric tiles, timers, and destructive controls.
 - High contrast light and dark.
 - Liquid Glass/material surfaces with bright, dark, and image-heavy content behind them.
+- Columnar layout behavior across compact, regular, and expanded widths.
 - Reduce motion.
 - Color-blind safe status indicators.
 
