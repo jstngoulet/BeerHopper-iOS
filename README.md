@@ -2,6 +2,18 @@
 
 The official iOS client for [staging.beerhopper.me](https://staging.beerhopper.me), BeerHopper connects brewers, beer lovers, and microbrewery communities. Discover hops, grains, yeasts, recipes, and share your brews — now on mobile.
 
+## Planning Review
+
+The native app direction is documented under `docs/ios/`:
+
+- `docs/ios/product_plan.md`
+- `docs/ios/design_language.md`
+- `docs/ios/architecture.md`
+- `docs/ios/roadmap.md`
+- `docs/ios/validation_plan.md`
+
+These docs define the SwiftUI-first architecture, BeerHopper design language translation, release phases, testing strategy, and review gates for turning this repo into a polished Apple-native companion to the web app.
+
 ---
 
 ## 📱 Overview
@@ -97,5 +109,4 @@ Will be a private repo shortly
 ---
 
 Cheers to good code and great brews 🍻
-
 
