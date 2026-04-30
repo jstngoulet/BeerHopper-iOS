@@ -76,6 +76,27 @@ Rules:
 - Deep links should map from web paths into the closest native screen.
 - Navigation stacks should preserve tab state when switching tabs.
 
+```mermaid
+flowchart TD
+    Launch[App Launch] --> Session{Session restored?}
+    Session -->|No| PublicTabs[Public tab shell]
+    Session -->|Yes| AuthedTabs[Authenticated tab shell]
+    PublicTabs --> Explore[Explore]
+    PublicTabs --> Search[Search]
+    PublicTabs --> CommunityRead[Community read]
+    PublicTabs --> ProfilePrompt[Profile sign-in prompt]
+    AuthedTabs --> ExploreAuthed[Explore personalized]
+    AuthedTabs --> SearchAuthed[Search]
+    AuthedTabs --> Brew[Brew]
+    AuthedTabs --> Community[Community + Inbox]
+    AuthedTabs --> Profile[Profile + Settings]
+    Explore --> Mutation{Mutation requested?}
+    Search --> Mutation
+    CommunityRead --> Mutation
+    Mutation -->|Allowed| Action[Run native action]
+    Mutation -->|Requires auth| SignIn[Present sign-in sheet]
+```
+
 ## Feature Parity Strategy
 
 ### Phase 1: Mobile Core

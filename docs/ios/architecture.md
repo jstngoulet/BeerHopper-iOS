@@ -74,6 +74,27 @@ Recommended native layers:
 
 These layers may be separate Swift packages or separate source groups at first. The rule is ownership and boundaries, not package count. No layer may depend on third-party code.
 
+## MVVM Request Flow
+
+```mermaid
+sequenceDiagram
+    participant View as SwiftUI View
+    participant VM as ViewModel
+    participant Repo as Repository
+    participant API as API Client
+    participant Secure as Secure Layer
+    participant Server as BeerHopper API
+    View->>VM: user intent
+    VM->>Repo: load or mutate domain data
+    Repo->>API: request DTOs
+    API->>Secure: read auth/API tokens
+    API->>Server: URLSession request
+    Server-->>API: response
+    API-->>Repo: decoded DTO or APIError
+    Repo-->>VM: domain model or failure
+    VM-->>View: published UI state
+```
+
 ## Swift Portability Goal
 
 The eventual goal is to use Swift for Android as well. The iOS app should stay fully native and SwiftUI-based, but its non-UI core should be written with future Swift-for-Android reuse in mind.
@@ -104,6 +125,33 @@ iOS-only implementation:
 - Passkey/auth session adapter.
 - Device cache implementation.
 - Haptics and accessibility modifiers.
+
+```mermaid
+flowchart LR
+    subgraph SharedCore[Future Pure Swift Shared Core]
+        Domain[Domain Models]
+        DTO[API DTOs]
+        Repos[Repository Protocols]
+        Mapping[Mapping + Validation]
+        Events[Analytics Event Builders]
+        Links[Deep Link Parser]
+    end
+    subgraph IOS[iOS Native App]
+        SwiftUI[SwiftUI Views]
+        IOSVM[Observable ViewModels]
+        Keychain[Keychain Adapter]
+        AuthServices[AuthenticationServices Adapter]
+        Notifications[UserNotifications Adapter]
+    end
+    subgraph Android[Future Swift Android App]
+        AndroidUI[Android UI Layer]
+        AndroidVM[Swift ViewModels or Presenters]
+        AndroidSecure[Android Secure Adapter]
+        AndroidNetwork[Android Network Adapter]
+    end
+    IOS --> SharedCore
+    Android --> SharedCore
+```
 
 ## App Shell
 
@@ -230,6 +278,21 @@ Immediate hardening from current baseline:
 - Move provider setup into dependency assembly.
 - Add explicit unauthenticated root state and sign-in prompts.
 
+```mermaid
+stateDiagram-v2
+    [*] --> Launching
+    Launching --> RestoringSession
+    RestoringSession --> SignedOut: no valid token
+    RestoringSession --> SignedIn: valid token
+    SignedOut --> Authenticating: sign-in requested
+    Authenticating --> SignedIn: auth succeeds
+    Authenticating --> SignedOut: auth cancelled or fails
+    SignedIn --> Refreshing: token near expiry
+    Refreshing --> SignedIn: refresh succeeds
+    Refreshing --> SignedOut: refresh rejected
+    SignedIn --> SignedOut: logout or revocation
+```
+
 ## Deep Links
 
 Map web routes to native destinations:
@@ -252,6 +315,20 @@ Rules:
 - Unknown links open web fallback in `SFSafariViewController` or Safari.
 - Private or forbidden links show a native permission state, not a crash or blank screen.
 - Push payloads carry a safe path, not sensitive data.
+
+```mermaid
+flowchart TD
+    Incoming[Universal link / push path / URL scheme] --> Parse[Pure Swift deep-link parser]
+    Parse --> Known{Known route?}
+    Known -->|No| WebFallback[Open web fallback]
+    Known -->|Yes| AuthNeeded{Requires auth?}
+    AuthNeeded -->|No| Navigate[Navigate native stack]
+    AuthNeeded -->|Yes| Session{Signed in?}
+    Session -->|No| SignIn[Show sign-in sheet]
+    Session -->|Yes| Permission{API permits access?}
+    Permission -->|Yes| Navigate
+    Permission -->|No| AccessState[Show forbidden/request-access state]
+```
 
 ## Realtime and Offline
 

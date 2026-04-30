@@ -4,6 +4,22 @@
 
 Goal: agree on architecture, design language, and release scope before broad implementation.
 
+```mermaid
+gantt
+    title BeerHopper iOS Planning-To-Implementation Sequence
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b %d
+    section Planning
+    Foundation review           :done, p0, 2026-04-29, 3d
+    Architecture comments        :active, p0b, after p0, 4d
+    section Implementation
+    Restart app shell            :p1, after p0b, 7d
+    Core public experience       :p2, after p1, 14d
+    Authenticated community      :p3, after p2, 14d
+    Brew-day companion           :p4, after p3, 21d
+    Brewery operations           :p5, after p4, 21d
+```
+
 Deliverables:
 
 - Planning docs in this folder.
