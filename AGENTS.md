@@ -31,7 +31,10 @@ If iOS behavior conflicts with product requirements, align the app to product do
 
 ## Architecture Rules
 
-- Keep app targets thin. Shared domain, networking, design system, analytics, and feature modules should live in Swift packages.
+- Restart stale implementation work in the existing repo when approved; do not preserve old app structure by default.
+- No external libraries. Use Apple frameworks and first-party code only.
+- Use MVVM throughout: SwiftUI views, observable view models, domain/API models, repositories/services for IO.
+- Keep app targets thin. Shared domain, API, data, secure storage, design, analytics, realtime, and feature modules should have explicit ownership boundaries.
 - Prefer Swift concurrency (`async`/`await`, `actor`, `AsyncSequence`) for networking and realtime coordination.
 - Use dependency injection through protocols and environment values so previews and tests do not hit production services.
 - Persist secrets only in Keychain. Do not store JWTs, refresh tokens, API tokens, or passkey state in `UserDefaults`.

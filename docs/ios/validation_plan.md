@@ -3,8 +3,11 @@
 ## Review Checklist For This Planning PR
 
 - The app direction is SwiftUI-first and Apple-native.
+- The existing repo is reused, but the stale project is restarted rather than patched incrementally.
+- The plan forbids external libraries and uses Apple frameworks only.
+- The app architecture is MVVM.
 - The design language matches BeerHopper brand tokens without copying web layout.
-- Architecture separates app shell, design system, networking, storage, analytics, realtime, and features.
+- Architecture separates app shell, design, API, data, secure, analytics, realtime, and feature layers.
 - MVP scope is narrow enough to ship.
 - Privacy, auth, permissions, and feature flags are represented early.
 - Deep links align with web routes.
@@ -17,6 +20,8 @@ Every implementation PR should document:
 - Scope and affected modules.
 - Screens or flows changed.
 - API endpoints touched.
+- Confirmation that no external libraries were added.
+- MVVM boundaries touched.
 - Feature flags or server capability checks.
 - Analytics events added or changed.
 - Accessibility checks performed.

@@ -7,7 +7,9 @@ Goal: agree on architecture, design language, and release scope before broad imp
 Deliverables:
 
 - Planning docs in this folder.
-- Module map and package ownership.
+- Restart decision for the existing repo.
+- Native-only dependency policy.
+- MVVM module map and layer ownership.
 - Design token list and component inventory.
 - Deep-link map from web to iOS.
 - MVP scope and non-goals.
@@ -15,22 +17,27 @@ Deliverables:
 Acceptance:
 
 - Product owner approves MVP scope.
-- Engineering accepts module boundaries.
+- Engineering accepts the restart path and native-only policy.
+- Engineering accepts MVVM and layer boundaries.
 - Design direction is approved as native iOS, not a web clone.
 
 ## Phase 1: App Shell and Design System
 
 Deliverables:
 
+- Fresh SwiftUI app structure in the existing repo.
 - App shell with tabs, route coordinator, and dependency assembly.
 - Design system tokens for colors, typography, spacing, shape, shadows, status, and metrics.
 - Reusable async, row, badge, metric, and remote image components.
+- First-party API, data, secure, and analytics layer skeletons.
 - Remove hardcoded sample login from startup.
 - Build configurations for staging and production.
 
 Acceptance:
 
 - App launches signed out and signed in without sample credentials.
+- No third-party dependencies are present.
+- MVVM boundaries are visible in the first feature skeleton.
 - Dynamic Type, dark mode, and high contrast work on shell screens.
 - Unit tests cover route resolution and session state.
 

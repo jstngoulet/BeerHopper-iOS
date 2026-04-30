@@ -16,6 +16,8 @@ BeerHopper iOS should be the mobile companion for discovery, brew-day execution,
 
 Native iOS priorities:
 
+- Restart the stale implementation in the existing repo with clean SwiftUI/MVVM boundaries.
+- Use no external libraries; build the API, data, secure, design, analytics, and realtime layers with Apple frameworks and first-party code.
 - Fast launch into current activity, search, and brew-day context.
 - Tab-based primary navigation with stack-based detail flows.
 - Sheets for focused actions, forms for structured editing, and lists for scan-heavy content.

@@ -9,34 +9,70 @@ The existing repo already contains:
 - `NetworkingAPI`: Swift package with REST client, auth providers, search, forum, and ingredient APIs.
 - XCTest suites for auth, forum, ingredients, search, and UI launch tests.
 
-This plan keeps that package direction and hardens it into a scalable native architecture.
+The project is stale enough that the implementation should restart inside this existing repository. Existing code should be treated as reference material, not as the foundation to preserve by default.
+
+Restart approach:
+
+- Create a new SwiftUI app structure on the planning-approved branch.
+- Keep old code reachable through Git history.
+- Rebuild the app shell, API layer, data layer, secure storage layer, design system, and feature modules from first principles.
+- Port only reviewed assets, DTOs, tests, and endpoint knowledge that still match the current web/API product.
+- Remove hardcoded sample login behavior and any view-to-network coupling during the reset.
+
+## Native-Only Dependency Policy
+
+No external libraries are allowed.
+
+Allowed foundation:
+
+- SwiftUI
+- Foundation
+- URLSession
+- Observation and Combine where useful
+- Security framework / Keychain APIs
+- CryptoKit where needed for first-party cryptographic helpers
+- AuthenticationServices for passkeys and web auth sessions
+- LocalAuthentication for Face ID / Touch ID gates where appropriate
+- UserNotifications
+- SwiftData or Core Data only after a persistence decision is approved
+- XCTest and XCUITest
+
+Not allowed:
+
+- Third-party networking clients
+- Third-party dependency injection frameworks
+- Third-party architecture/state-management frameworks
+- Third-party image loaders/caches
+- Third-party analytics SDKs unless a future policy exception is explicitly approved
+- Third-party realtime/socket clients unless the API contract makes a native implementation impractical and an exception is approved
 
 ## Target Module Map
 
 ```mermaid
 flowchart TD
     App[BeerHopper App Target] --> Shell[AppShell]
-    App --> Features[Feature Packages]
-    Shell --> Core[Core]
-    Shell --> Design[DesignSystem]
-    Features --> Core
-    Features --> Design
-    Features --> API[NetworkingAPI]
-    Core --> Analytics[AnalyticsKit]
-    Core --> Storage[StorageKit]
-    Core --> Realtime[RealtimeKit]
-    API --> Storage
+    Shell --> Design[Design Layer]
+    Shell --> Features[Feature MVVM Modules]
+    Features --> API[API Layer]
+    Features --> Data[Data Layer]
+    Features --> Secure[Secure Layer]
+    Features --> Analytics[Analytics Layer]
+    API --> Secure
+    Data --> Secure
 ```
 
-Recommended packages:
+Recommended native layers:
 
-- `Core`: environment, app state, feature flags, logging, clocks, IDs, errors, capability models.
-- `DesignSystem`: tokens, reusable controls, async state views, image views, entity rows, metrics.
-- `NetworkingAPI`: generated or hand-maintained endpoint clients, DTOs, auth headers, API errors.
-- `StorageKit`: Keychain, caches, user defaults wrappers, persistence policies.
-- `AnalyticsKit`: event contract, consent gate, GA/Firebase/server forwarding adapter.
-- `RealtimeKit`: socket client, presence, brew-session patches, reconnection policy.
-- Feature packages over time: `ExploreFeature`, `SearchFeature`, `BrewFeature`, `CommunityFeature`, `ProfileFeature`, `BreweryFeature`, `RecipeFeature`.
+- `AppShell`: app entry point, tab structure, root routing, dependency assembly, scene lifecycle.
+- `Design`: semantic tokens, SwiftUI components, async states, entity rows, metric tiles, accessibility helpers.
+- `API`: URLSession client, request builders, response decoding, endpoint clients, API error taxonomy.
+- `Data`: repositories, caches, domain mappers, pagination, stale-state handling, offline read policies.
+- `Secure`: Keychain wrapper, token vault, biometric gates, secret redaction helpers.
+- `Analytics`: first-party event contract, consent gate, API analytics mirroring.
+- `Realtime`: native realtime transport layer when needed, reconnection policy, brew-session patch application.
+- `Features`: MVVM feature modules such as Explore, Search, Brew, Community, Profile, Brewery, Recipe.
+
+These layers may be separate Swift packages or separate source groups at first. The rule is ownership and boundaries, not package count. No layer may depend on third-party code.
 
 ## App Shell
 
@@ -54,7 +90,7 @@ The app target should not contain API parsing, auth token storage, business rule
 
 ## State Management
 
-Use an observable model per feature and a small global app model:
+Use MVVM with an observable view model per screen or cohesive flow and a small global app model:
 
 - `SessionStore`: auth state, user identity, token status, consent state.
 - `FeatureFlagStore`: local defaults plus server capability checks.
@@ -91,22 +127,61 @@ Rules:
 - View models call protocols, not concrete clients.
 - API DTOs are mapped to domain models before rendering where API shape is unstable or server-specific.
 - UI state is explicit: idle, loading, loaded, empty, failed, stale.
+- Views do not construct requests, read Keychain values, parse JSON, or mutate caches directly.
+- Repositories own data orchestration and hide API/cache decisions from view models.
 
 ## Networking
 
-`NetworkingAPI` should provide:
+The API layer should provide:
 
 - Typed endpoint clients by domain.
-- `RESTClient` with request middleware for API token, JWT, retry, tracing, and consent-safe analytics metadata.
+- A first-party `RESTClient` built on `URLSession`.
+- Request composition for API token, JWT, retry policy, tracing, and consent-safe analytics metadata.
 - Error taxonomy: unauthorized, forbidden, not found, validation, rate limited, maintenance, network, decoding, unknown.
 - Pagination model shared across search, feeds, posts, beers, recipes, and breweries.
 - Request cancellation and task priority support.
+- Decoding configured with BeerHopper date formats and safe fallback behavior where the API returns partial arrays.
 
 Security:
 
 - JWT and refresh credentials live in Keychain.
 - API tokens come from build configuration, not source.
 - No local logging of raw tokens, emails, passwords, passkey challenge payloads, or full free-form user content.
+
+## Data Layer
+
+The data layer should provide:
+
+- Repository protocols and concrete repositories per domain.
+- Domain models that are stable for UI use.
+- DTO-to-domain mapping.
+- Read-through cache policies for public content and active brew-session context.
+- Stale state and refresh state.
+- Pagination cursors and deduplication.
+- Mutation result handling and server-authoritative reconciliation.
+
+Persistence choices:
+
+- Start with in-memory repositories and small disk caches where needed.
+- Use `UserDefaults` only for harmless preferences.
+- Use Keychain only for secrets.
+- Use SwiftData or Core Data only after the domain, migration, and privacy behavior are specified.
+
+## Secure Layer
+
+The secure layer should provide:
+
+- Keychain token storage.
+- Token read/write/delete APIs.
+- Secret redaction for logs.
+- Optional biometric unlock gates for sensitive screens.
+- Secure session reset on logout, account deletion, or token revocation.
+
+Rules:
+
+- No JWTs, refresh tokens, passwords, OAuth secrets, or API keys in `UserDefaults`.
+- No secrets in crash logs, analytics, push payloads, or debug descriptions.
+- Logout clears secure tokens and invalidates private caches.
 
 ## Authentication
 
@@ -175,6 +250,7 @@ Rules:
 
 - Respect analytics consent before sending.
 - Mirror eligible events to the API analytics endpoint when server forwarding remains the source of truth.
+- Implement analytics with first-party API calls and Apple-native plumbing only.
 - Do not send secrets, tokens, email addresses, raw text input, or precise location unless a future explicit consent model covers it.
 - UTM/deep-link attribution should be captured from universal links and install/referral contexts where available.
 
