@@ -60,3 +60,10 @@ xcodebuild test -workspace BeerHopper.xcworkspace -scheme BeerHopper -destinatio
 ```
 
 `--lenient` remains temporary until the stale reference implementation is fully removed from the app target.
+
+PR validation now also runs `.github/workflows/ios-ci.yml` on GitHub macOS runners:
+
+- whitespace check
+- SwiftLint
+- `swift test --package-path DesignSystem`
+- generic iOS device build with signing disabled
