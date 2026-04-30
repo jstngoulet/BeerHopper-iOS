@@ -6,41 +6,32 @@
 //
 
 import SwiftUI
-import NetworkingAPI
 
 @main
 struct BeerHopperApp: App {
-    // Initialize the AuthProvider with both providers
-    private let authProvider = AuthProvider(providers: [
-        GooglePassportProvider.shared,
-        InternalPassportProvider.shared
-    ])
-    
+    @StateObject
+    private var compositionRoot: AppCompositionRoot
+
+    init() {
+        self._compositionRoot = StateObject(wrappedValue: AppCompositionRoot())
+    }
+
     var body: some Scene {
         WindowGroup {
-            DashboardTabView()
+            AppShellView(
+                router: self.compositionRoot.router,
+                sessionStore: self.compositionRoot.sessionStore
+            )
                 .onOpenURL { url in
-                    Task {
-                        await authProvider.handleSignIn(from: url)
-                    }
-                }
-                .onAppear {
-                    Task {
-                        if let clientID = ProcessInfo.processInfo.environment["CLIENT_ID"] {
-                            await GooglePassportProvider.configure(clientID)
-                        }
-                        
-                        do {
-                            try await authProvider.restorePreviousSession()
-                        } catch {
-                            print("Not signed in: \(error.localizedDescription)")
-                        }
-                    }
+                    self.compositionRoot.open(url)
                 }
         }
     }
 }
 
 #Preview {
-    DashboardTabView()
+    AppShellView(
+        router: AppRouter(),
+        sessionStore: AppSessionStore(initialState: .signedOut)
+    )
 }

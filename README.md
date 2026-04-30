@@ -12,6 +12,7 @@ The native app direction is documented under `docs/ios/`:
 - `docs/ios/roadmap.md`
 - `docs/ios/validation_plan.md`
 - `docs/ios/sprint1/`
+- `docs/ios/sprint2/`
 
 These docs define the SwiftUI-first architecture, BeerHopper design language translation, release phases, testing strategy, and review gates for turning this repo into a polished Apple-native companion to the web app.
 
