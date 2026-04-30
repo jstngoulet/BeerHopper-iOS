@@ -9,12 +9,12 @@ final class AppCompositionRoot: ObservableObject {
     private let deepLinkParser: DeepLinkParsing
 
     init(
-        router: AppRouter = AppRouter(),
-        sessionStore: AppSessionStore = AppSessionStore(initialState: .signedOut),
+        router: AppRouter? = nil,
+        sessionStore: AppSessionStore? = nil,
         deepLinkParser: DeepLinkParsing = BeerHopperDeepLinkParser()
     ) {
-        self.router = router
-        self.sessionStore = sessionStore
+        self.router = router ?? AppRouter()
+        self.sessionStore = sessionStore ?? AppSessionStore(initialState: .signedOut)
         self.deepLinkParser = deepLinkParser
     }
 
