@@ -1,0 +1,75 @@
+included:
+  - BeerHopper
+  - BeerHopperTests
+  - BeerHopperUITests
+  - DesignSystem/Sources
+  - NetworkingAPI/Sources
+
+excluded:
+  - .build
+  - DerivedData
+  - build
+
+opt_in_rules:
+  - sorted_imports
+  - vertical_whitespace_between_cases
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+
+analyzer_rules:
+  - explicit_self
+
+disabled_rules:
+  # BeerHopper intentionally requires explicit self for readability and review.
+  - redundant_self_in_closure
+
+line_length:
+  warning: 120
+  error: 320
+  ignores_comments: true
+  ignores_urls: true
+
+file_length:
+  warning: 500
+  error: 700
+
+type_body_length:
+  warning: 250
+  error: 400
+
+function_body_length:
+  warning: 50
+  error: 90
+
+cyclomatic_complexity:
+  warning: 10
+  error: 15
+
+identifier_name:
+  min_length:
+    warning: 2
+  excluded:
+    - _body
+    - id
+    - URL
+    - x
+    - y
+
+large_tuple:
+  warning: 3
+  error: 5
+
+explicit_self:
+  severity: error
+
+custom_rules:
+  beerhopper_singleton_shared:
+    name: "Avoid BeerHopper-owned singletons"
+    regex: "\\bstatic\\s+(let|var)\\s+shared\\b"
+    message: "Avoid `shared` singleton storage for BeerHopper-owned services. Own app-wide dependencies in the composition root and inject protocols."
+    severity: warning
+  beerhopper_direct_shared_access:
+    name: "Review direct shared access"
+    regex: "\\b[A-Z][A-Za-z0-9_]+\\.shared\\b"
+    message: "Direct `.shared` access must be limited to platform adapters; feature code should receive injected dependencies."
+    severity: warning
