@@ -9,6 +9,7 @@
 - SwiftLint is accepted as a development-only quality tool and must enforce explicit `self.`.
 - The app architecture is MVVM.
 - BeerHopper-owned service singletons are avoided in favor of dependency injection.
+- API, data, secure, analytics, realtime, feature flag, clock, and notification dependencies are injectable where practical.
 - Responsive columnar layouts are part of the design system.
 - The plan notes Swift-for-Android as a long-term goal while keeping iOS UI fully native.
 - The design language matches BeerHopper brand tokens without copying web layout.
@@ -29,6 +30,7 @@ Every implementation PR should document:
 - SwiftLint results and any rule suppressions.
 - Confirmation that `self.` is used where available in touched Swift code.
 - Confirmation that touched dependencies are injected rather than singleton accessed.
+- Confirmation that previews/tests can substitute fakes for touched IO boundaries.
 - MVVM boundaries touched.
 - Shared-core versus iOS-only boundary impact.
 - Liquid Glass/material surface impact and solid fallback behavior.

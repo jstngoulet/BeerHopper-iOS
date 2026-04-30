@@ -26,6 +26,7 @@ Deliverables:
 - Restart decision for the existing repo.
 - Native-only dependency policy.
 - SwiftLint coding standard, including explicit `self.` and singleton avoidance.
+- Dependency injection standards for app-wide and feature-level services.
 - MVVM module map and layer ownership.
 - Swift-for-Android portability boundaries for non-UI core code.
 - Design token list and component inventory.
@@ -39,6 +40,7 @@ Acceptance:
 - Engineering accepts the restart path and native-only policy.
 - Engineering accepts MVVM and layer boundaries.
 - Engineering accepts SwiftLint as a development-only tool and agrees to explicit `self.` / no-singleton standards.
+- Engineering accepts dependency injection as the default for BeerHopper-owned services.
 - Engineering accepts which code is pure Swift shared-core candidate versus iOS-only implementation.
 - Design direction is approved as native iOS, not a web clone.
 - Liquid Glass usage rules are approved for dense brew-day and data-heavy screens.
@@ -65,6 +67,7 @@ Acceptance:
 - No third-party dependencies are present.
 - SwiftLint runs locally/CI and enforces explicit `self.` where available.
 - BeerHopper-owned services are injected, not accessed as singletons.
+- Feature previews and tests can replace API/data/secure/analytics dependencies with fakes.
 - MVVM boundaries are visible in the first feature skeleton.
 - Apple-specific adapters are isolated behind protocols where future Swift-for-Android reuse matters.
 - Dynamic Type, dark mode, and high contrast work on shell screens.

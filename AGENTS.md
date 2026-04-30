@@ -40,6 +40,7 @@ If iOS behavior conflicts with product requirements, align the app to product do
 - Use `self.` whenever it is available; the lint configuration should require explicit self and not warn it away.
 - Use MVVM throughout: SwiftUI views, observable view models, domain/API models, repositories/services for IO.
 - Avoid singletons. Dependencies must be injected through initializers, environment values, protocol abstractions, or app composition roots.
+- Use dependency injection wherever practical for API, data, secure storage, analytics, realtime, feature flags, notification, clock, and cache dependencies.
 - Keep non-UI domain, API, data, validation, and analytics code pure Swift where practical so future Swift-for-Android work can reuse it.
 - Isolate Apple-specific APIs behind protocols and adapters; do not compromise native SwiftUI UX for portability.
 - Keep app targets thin. Shared domain, API, data, secure storage, design, analytics, realtime, and feature modules should have explicit ownership boundaries.

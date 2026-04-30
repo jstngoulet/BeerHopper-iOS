@@ -63,6 +63,32 @@ Required style:
 - Keep SwiftUI views declarative; move side effects and async coordination into view models or services.
 - Avoid global mutable state.
 
+## Dependency Injection
+
+Dependency injection is the default for BeerHopper-owned services.
+
+Inject where practical:
+
+- API clients
+- repositories
+- stores/session state
+- secure storage adapters
+- analytics clients
+- realtime clients
+- feature flag providers
+- date/clock and ID providers
+- notification adapters
+- image/cache adapters
+
+Rules:
+
+- Prefer initializer injection for view models, repositories, services, and adapters.
+- Use SwiftUI environment values for app-wide dependencies that many views need, but keep concrete construction in the app composition root.
+- Depend on protocols at feature boundaries so previews and tests can provide fakes.
+- Avoid service locators and global registries.
+- If a dependency is expensive or app-wide, keep it long-lived in the composition root rather than making it a singleton.
+- Apple framework singleton access must be wrapped behind an injectable adapter before feature code uses it.
+
 Singleton policy:
 
 - Avoid singletons for API clients, repositories, stores, auth providers, design registries, analytics, and realtime clients.
@@ -196,6 +222,7 @@ Dependency rule:
 - The app shell builds concrete dependencies once.
 - Features receive dependencies through initializers or environment values.
 - View models depend on protocols.
+- Repositories and services receive collaborators through initializers.
 - No feature should call `Shared.instance`, `default`, or ad hoc global service access for BeerHopper-owned services.
 
 ## State Management
