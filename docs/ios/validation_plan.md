@@ -6,6 +6,7 @@
 - The existing repo is reused, but the stale project is restarted rather than patched incrementally.
 - The plan forbids external libraries and uses Apple frameworks only.
 - The app architecture is MVVM.
+- The plan notes Swift-for-Android as a long-term goal while keeping iOS UI fully native.
 - The design language matches BeerHopper brand tokens without copying web layout.
 - Architecture separates app shell, design, API, data, secure, analytics, realtime, and feature layers.
 - MVP scope is narrow enough to ship.
@@ -22,6 +23,7 @@ Every implementation PR should document:
 - API endpoints touched.
 - Confirmation that no external libraries were added.
 - MVVM boundaries touched.
+- Shared-core versus iOS-only boundary impact.
 - Feature flags or server capability checks.
 - Analytics events added or changed.
 - Accessibility checks performed.

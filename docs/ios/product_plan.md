@@ -21,6 +21,7 @@ Restart rules:
 - **Native first:** use Apple platform patterns for navigation, lists, search, forms, sheets, menus, notifications, passkeys, and sharing.
 - **No external libraries:** use SwiftUI, Foundation, URLSession, Observation/Combine as needed, Security/Keychain APIs, SwiftData/Core Data as approved, XCTest, and other Apple frameworks only.
 - **MVVM throughout:** views render state, view models coordinate user intent and async work, models represent domain/API data, and services own IO boundaries.
+- **Future Swift portability:** keep domain models, API clients, data repositories, secure abstractions, and analytics contracts in pure Swift where practical so a future Swift-for-Android client can reuse the non-UI core.
 - **Same product, mobile shape:** use the web product model and vocabulary, but optimize the interaction model for one-handed, repeated mobile use.
 - **Server-authoritative:** the API owns privacy, permissions, plan limits, claimability, role checks, and mutation validation.
 - **Progressive parity:** ship reliable mobile-critical journeys before attempting full web parity.
@@ -54,6 +55,7 @@ MVP should cover the mobile journeys where a native app clearly improves usage:
 - Full recipe editor parity.
 - Offline-first mutation queue for every domain.
 - Third-party package adoption.
+- Android app implementation, even though shared pure-Swift core portability should influence boundaries now.
 - Apple Watch, widgets, App Intents, and Live Activities, except as future candidates.
 - Native payment flows until plan and App Store policy questions are resolved.
 

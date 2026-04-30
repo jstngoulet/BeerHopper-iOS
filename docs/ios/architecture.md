@@ -74,6 +74,37 @@ Recommended native layers:
 
 These layers may be separate Swift packages or separate source groups at first. The rule is ownership and boundaries, not package count. No layer may depend on third-party code.
 
+## Swift Portability Goal
+
+The eventual goal is to use Swift for Android as well. The iOS app should stay fully native and SwiftUI-based, but its non-UI core should be written with future Swift-for-Android reuse in mind.
+
+Portability rules:
+
+- Keep domain models, DTOs, endpoint clients, repositories, validators, pagination, API errors, analytics event builders, and feature flags in pure Swift where practical.
+- Isolate Apple-only APIs behind protocols in the app, secure, storage, notification, and realtime layers.
+- Keep SwiftUI views, navigation, haptics, Dynamic Type, Keychain, AuthenticationServices, UserNotifications, SwiftData/Core Data, and other Apple-specific implementation details outside the shared core.
+- Do not add cross-platform frameworks or external libraries to chase portability.
+- Make Android reuse a boundary decision now, not a reason to compromise the iOS-native experience.
+
+Candidate shared core:
+
+- API request/response DTOs.
+- Domain models.
+- Repository protocols and pure mapping logic.
+- Validation and formatting rules.
+- Analytics event names and safe parameter builders.
+- Deep-link path parsing independent of Apple navigation.
+
+iOS-only implementation:
+
+- SwiftUI views and view modifiers.
+- App shell, tabs, navigation stacks, sheets, and toolbars.
+- Keychain adapter.
+- Local notification adapter.
+- Passkey/auth session adapter.
+- Device cache implementation.
+- Haptics and accessibility modifiers.
+
 ## App Shell
 
 The app target should own composition only:
