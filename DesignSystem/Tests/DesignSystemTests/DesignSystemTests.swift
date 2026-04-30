@@ -2,11 +2,9 @@ import XCTest
 @testable import DesignSystem
 
 final class DesignSystemTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
-
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+    func testColumnSizeClassBreakpoints() {
+        XCTAssertEqual(BHColumnSizeClass(width: 320), .compact)
+        XCTAssertEqual(BHColumnSizeClass(width: 700), .regular)
+        XCTAssertEqual(BHColumnSizeClass(width: 1_024), .expanded)
     }
 }

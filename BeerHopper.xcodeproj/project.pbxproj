@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4253365D2DDCF0740051563E /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 4253365C2DDCF0740051563E /* DesignSystem */; };
-		425336652DDCF5CF0051563E /* NetworkingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 425336642DDCF5CF0051563E /* NetworkingAPI */; };
-		425336672DDD004F0051563E /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 425336662DDD004F0051563E /* Models */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,9 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				425336672DDD004F0051563E /* Models in Frameworks */,
 				4253365D2DDCF0740051563E /* DesignSystem in Frameworks */,
-				425336652DDCF5CF0051563E /* NetworkingAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,8 +269,6 @@
 			name = BeerHopper;
 			packageProductDependencies = (
 				4253365C2DDCF0740051563E /* DesignSystem */,
-				425336642DDCF5CF0051563E /* NetworkingAPI */,
-				425336662DDD004F0051563E /* Models */,
 			);
 			productName = BeerHopper;
 			productReference = 427ECBC82DD5225E0053101A /* BeerHopper.app */;
@@ -740,14 +734,6 @@
 		4253365C2DDCF0740051563E /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
-		};
-		425336642DDCF5CF0051563E /* NetworkingAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NetworkingAPI;
-		};
-		425336662DDD004F0051563E /* Models */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Models;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

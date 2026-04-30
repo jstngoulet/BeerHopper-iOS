@@ -5,9 +5,6 @@
       location = "container:BeerHopper.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:NetworkingAPI">
-   </FileRef>
-   <FileRef
       location = "group:DesignSystem">
    </FileRef>
 </Workspace>

@@ -8,13 +8,12 @@
 import XCTest
 
 final class BeerHopperUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
 
     override func setUpWithError() throws {
-        continueAfterFailure = false
+        self.continueAfterFailure = false
     }
 
     @MainActor
@@ -28,6 +27,6 @@ final class BeerHopperUITestsLaunchTests: XCTestCase {
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "Launch Screen"
         attachment.lifetime = .keepAlways
-        add(attachment)
+        self.add(attachment)
     }
 }

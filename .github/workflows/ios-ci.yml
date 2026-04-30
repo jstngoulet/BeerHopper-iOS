@@ -1,0 +1,43 @@
+name: iOS CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ios-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate iOS reset
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Check whitespace
+        run: git diff --check
+
+      - name: Lint Swift
+        run: swiftlint lint --config .swiftlint.yml --quiet --lenient
+
+      - name: Test DesignSystem package
+        run: swift test --package-path DesignSystem
+
+      - name: Build app for generic iOS device
+        run: |
+          xcodebuild build \
+            -workspace BeerHopper.xcworkspace \
+            -scheme BeerHopper \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO

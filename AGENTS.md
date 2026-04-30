@@ -2,7 +2,7 @@
 
 Purpose: keep iOS changes aligned with the BeerHopper product, API, and web design language while still feeling native to Apple platforms.
 
-## Source Of Truth
+## Source References
 
 - iOS planning docs: `docs/ios/`
 - Web product requirements: sibling repo `../BeerHopper - Web/docs/wiki/product/requirements_overview.md`
@@ -11,13 +11,14 @@ Purpose: keep iOS changes aligned with the BeerHopper product, API, and web desi
 - Web analytics contract: sibling repo `../BeerHopper - Web/docs/wiki/analytics/events.md`
 - API implementation and contracts: sibling repo `../BeerHopper - API`
 
-If iOS behavior conflicts with product requirements, align the app to product docs or update the docs in the same change.
+AGENTS.md should stay as a routing and operating guide. Do not duplicate detailed business logic here; reference the current code, API contracts, tests, and product docs instead.
 
-## Product Rules
+## Business Logic Rules
 
-- Server remains the source of truth for auth, permissions, brewery membership, plan gates, and private content.
-- Public views are read-only and must not expose member controls.
-- Private breweries, private recipes, and private brew sessions must not leak data through previews, caches, widgets, push payloads, or deep links.
+- Treat implementation code and API behavior as the first source to verify runtime business logic.
+- Use docs as intent and context, but confirm behavior against mounted routes, API contracts, tests, and current source before changing logic.
+- If docs and code disagree, do not copy stale behavior into this file. Update the code, tests, or product docs in the same change so the source of truth is current.
+- Keep this file limited to references, workflow rules, architectural constraints, and validation expectations.
 - New user-facing features must be planned behind a feature flag or server capability check before implementation.
 - Keep web and iOS routes semantically aligned so shared links can open on web or deep link into the app.
 

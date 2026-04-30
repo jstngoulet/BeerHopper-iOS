@@ -10,6 +10,7 @@ This folder is the review packet for making BeerHopper a first-class SwiftUI app
 - `roadmap.md`: implementation phases and acceptance criteria.
 - `validation_plan.md`: test strategy, review checklist, and launch readiness gates.
 - `sprint1/`: foundation reset artifacts for Jira Sprint 1.
+- `sprint2/`: native shell, design primitives, deep-link parser, and signed-out state reset.
 
 ## Core Positioning
 
