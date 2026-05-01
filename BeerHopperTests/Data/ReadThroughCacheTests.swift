@@ -7,10 +7,12 @@ final class ReadThroughCacheTests: XCTestCase {
         let cache = ReadThroughCache<String, String>(timeToLive: 10, clock: clock)
 
         await cache.set("fresh", for: "key")
-        XCTAssertEqual(await cache.value(for: "key"), "fresh")
+        let freshValue = await cache.value(for: "key")
+        XCTAssertEqual(freshValue, "fresh")
 
         clock.now = Date(timeIntervalSince1970: 111)
-        XCTAssertNil(await cache.value(for: "key"))
+        let expiredValue = await cache.value(for: "key")
+        XCTAssertNil(expiredValue)
     }
 }
 

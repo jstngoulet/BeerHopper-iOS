@@ -11,10 +11,14 @@ final class TokenVaultTests: XCTestCase {
         )
 
         try await vault.save(tokens)
-        XCTAssertEqual(try await vault.load(), tokens)
-        XCTAssertEqual(try await vault.currentAccessToken(), "access-token")
+        let loadedTokens = try await vault.load()
+        let accessToken = try await vault.currentAccessToken()
+
+        XCTAssertEqual(loadedTokens, tokens)
+        XCTAssertEqual(accessToken, "access-token")
 
         try await vault.clear()
-        XCTAssertNil(try await vault.load())
+        let clearedTokens = try await vault.load()
+        XCTAssertNil(clearedTokens)
     }
 }
