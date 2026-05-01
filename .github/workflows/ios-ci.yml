@@ -41,3 +41,11 @@ jobs:
             -scheme BeerHopper \
             -destination 'generic/platform=iOS' \
             CODE_SIGNING_ALLOWED=NO
+
+      - name: Build app tests for generic iOS device
+        run: |
+          xcodebuild build-for-testing \
+            -workspace BeerHopper.xcworkspace \
+            -scheme BeerHopper \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO
