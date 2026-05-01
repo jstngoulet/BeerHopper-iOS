@@ -20,11 +20,13 @@ struct BeerHopperApp: App {
         WindowGroup {
             AppShellView(
                 router: self.compositionRoot.router,
-                sessionStore: self.compositionRoot.sessionStore
+                sessionStore: self.compositionRoot.sessionStore,
+                discoveryRepository: self.compositionRoot.discoveryRepository,
+                featureFlags: self.compositionRoot.featureFlags
             )
-                .onOpenURL { url in
-                    self.compositionRoot.open(url)
-                }
+            .onOpenURL { url in
+                self.compositionRoot.open(url)
+            }
         }
     }
 }
@@ -32,6 +34,7 @@ struct BeerHopperApp: App {
 #Preview {
     AppShellView(
         router: AppRouter(),
-        sessionStore: AppSessionStore(initialState: .signedOut)
+        sessionStore: AppSessionStore(initialState: .signedOut),
+        featureFlags: FeatureFlagStore(flags: [.discoverySearch, .publicExploreFeed])
     )
 }

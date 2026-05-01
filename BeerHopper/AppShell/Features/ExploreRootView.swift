@@ -2,10 +2,22 @@ import DesignSystem
 import SwiftUI
 
 struct ExploreRootView: View {
-    private let currentRoute: AppRoute?
+    @StateObject
+    private var viewModel: ExploreFeedViewModel
 
-    init(currentRoute: AppRoute?) {
+    private let currentRoute: AppRoute?
+    private let repository: DiscoveryRepository
+    private let openProfile: () -> Void
+
+    init(
+        currentRoute: AppRoute?,
+        repository: DiscoveryRepository,
+        openProfile: @escaping () -> Void
+    ) {
         self.currentRoute = currentRoute
+        self.repository = repository
+        self.openProfile = openProfile
+        self._viewModel = StateObject(wrappedValue: ExploreFeedViewModel(repository: repository))
     }
 
     var body: some View {
@@ -18,26 +30,46 @@ struct ExploreRootView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         } secondary: {
-            VStack(spacing: BHSpacing.medium) {
-                BHEntityRow(
-                    title: "Nearby breweries",
-                    subtitle: "Location-aware discovery will connect to the API in Sprint 4.",
-                    metadata: "Soon",
-                    systemImage: "mappin.and.ellipse"
-                )
-                BHEntityRow(
-                    title: self.routeTitle,
-                    subtitle: "Deep links land in the matching native tab and preserve route context.",
-                    metadata: nil,
-                    systemImage: "link"
-                )
+            VStack(alignment: .leading, spacing: BHSpacing.medium) {
+                BHAsyncContent(state: self.viewModel.state) { items in
+                    VStack(spacing: BHSpacing.medium) {
+                        ForEach(items) { item in
+                            NavigationLink {
+                                EntityDetailView(
+                                    repository: self.repository,
+                                    id: item.entityID,
+                                    kind: item.kind,
+                                    openProfile: self.openProfile
+                                )
+                            } label: {
+                                BHEntityRow(
+                                    title: item.title,
+                                    subtitle: item.subtitle,
+                                    metadata: item.metadata,
+                                    systemImage: item.kind.systemImage
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
+
+                        BHEntityRow(
+                            title: self.routeTitle,
+                            subtitle: "Deep links land in the matching native tab and preserve route context.",
+                            metadata: nil,
+                            systemImage: "link"
+                        )
+                    }
+                }
             }
             .padding(BHSpacing.large)
             .bhSurface()
         } inspector: {
-            BHMetricTile(title: "Compatibility", value: "iOS", unit: "26+", systemImage: "iphone")
+            MutationSignInPromptView(signIn: self.openProfile)
         }
         .background(BHColor.groupedBackground)
+        .task {
+            await self.viewModel.load()
+        }
     }
 
     private var routeTitle: String {

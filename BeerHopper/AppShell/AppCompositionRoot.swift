@@ -8,6 +8,7 @@ final class AppCompositionRoot: ObservableObject {
     let apiClient: APIClientProtocol
     let tokenVault: TokenVault
     let featureFlags: FeatureFlagProviding
+    let discoveryRepository: DiscoveryRepository
 
     private let deepLinkParser: DeepLinkParsing
 
@@ -17,6 +18,7 @@ final class AppCompositionRoot: ObservableObject {
         configuration: AppConfiguration = .production,
         tokenVault: TokenVault = InMemoryTokenVault(),
         featureFlags: FeatureFlagProviding = FeatureFlagStore(),
+        discoveryRepository: DiscoveryRepository? = nil,
         deepLinkParser: DeepLinkParsing = BeerHopperDeepLinkParser()
     ) {
         self.router = router ?? AppRouter()
@@ -27,6 +29,7 @@ final class AppCompositionRoot: ObservableObject {
             baseURL: configuration.apiBaseURL,
             tokenProvider: tokenVault
         )
+        self.discoveryRepository = discoveryRepository ?? SeededDiscoveryRepository()
         self.deepLinkParser = deepLinkParser
     }
 
